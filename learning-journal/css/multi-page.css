@@ -8,10 +8,9 @@ body {
     padding: 0;
 }
 
-header,
 main {
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
+    padding: 1em;
     max-width: 1200px;
 }
 
