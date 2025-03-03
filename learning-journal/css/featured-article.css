@@ -1,0 +1,20 @@
+
+.article-container {
+    margin-top: 5em;
+}
+
+article header,
+.article-section {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.article-img {
+    padding: 1em 10%;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.article-date {
+    color: gray;
+}

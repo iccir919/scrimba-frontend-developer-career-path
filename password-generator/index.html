@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Password Generator</title>
+
+        <link rel="stylesheet" href="index.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Generate a <br><span class="green-text">random password</span></h1>
+            <h2>Never use an insecure password again.</h2>
+
+            <div class="password-options-container">
+                <fieldset>
+                    <legend>Password length (max. 20):</legend>
+                    <input type="number" id="password-length" name="password-length" min="1" max="20" placeholder="15">
+                </fieldset>
+                <fieldset>
+                    <legend>Included character types:</legend>
+                    <div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="numbers-checkbox" name="character-type" checked>
+                            <label for="numbers-checkbox">Numbers</label>
+                        </div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="symbols-checkbox" name="character-type" checked>
+                            <label for="symbols-checkbox">Symbols</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <button id="submit-btn">Generate passwords</button>
+
+
+            <hr>
+            <div class="results-container">
+                <button class="result-display result-text green-text" id="result-1" disabled></button>
+                
+                <button class="result-display result-text green-text" id="result-2" disabled></button>
+        </div>
+        <script src="index.js"></script>
+    </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Basketball Scoreboard</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Basketball Scoreboard</h1>
+            <div class="scoreboard-container">
+                <div class="opponent-section">
+                    <h3>HOME</h3>
+                    <div class="score-display">
+                        <p class="score" id="home-score"></p>
+                    </div>
+                    <div class="score-controls">
+                        <button 
+                            class="score-increment-btn"
+                            onclick="incrementScore('home', 1)"
+                        >
+                            +1
+                        </button>
+                        <button 
+                            class="score-increment-btn"
+                            onclick="incrementScore('home', 2)"
+                        >
+                            +2
+                        </button>
+                        <button 
+                            class="score-increment-btn"
+                            onclick="incrementScore('home', 3)"
+                        >
+                            +3
+                        </button>
+                    </div>
+                </div>
+                <div class="opponent-section">
+                    <h3>AWAY</h3>
+                    <div class="score-display">
+                        <p class="score" id="guest-score"></p>
+                    </div>
+                    <div class="score-controls">
+                        <button 
+                            class="score-increment-btn"
+                            onclick="incrementScore('guest', 1)"
+                        >
+                            +1
+                        </button>
+                        <button 
+                            class="score-increment-btn"
+                            onclick="incrementScore('guest', 2)"
+                        >
+                            +2
+                        </button>
+                        <button 
+                            class="score-increment-btn"
+                            onclick="incrementScore('guest', 3)"
+                        >
+                            +3
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button id="new-game-btn" onclick="newGame()">NEW GAME</button>
+        </div>
+        <script src="index.js"></script>
+    </body>
+</html>

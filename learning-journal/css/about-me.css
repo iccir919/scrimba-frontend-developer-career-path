@@ -1,0 +1,33 @@
+.feature-section-container {
+    margin-top: 5em;
+    margin-bottom: 5em;
+    display: flex;
+    flex-direction: column;
+}
+
+.feature-section-header {
+    font-size: 2.5rem;
+}
+
+.profile-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.content-section-container {
+    margin-left: 5em;
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+    .feature-section-container {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .feature-section-header {
+        margin-left: 2em;
+    }
+}

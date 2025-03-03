@@ -1,0 +1,66 @@
+@font-face {
+    font-family: "CursedTimer";
+    src: url("CursedTimer.ttf")
+}
+
+body {
+    margin: 0;
+    background-color: #1B244A;
+    color: white;
+    font-family: Verdana;
+    text-align: center;
+}
+
+button {
+    background: transparent;
+    border: 1px solid #9AABD8;
+    border-radius: 5px;
+    color: #9AABD8;
+}
+
+
+.container {
+    margin: 50px auto;
+    max-width: 600px;
+}
+
+.scoreboard-container {
+    display: flex;
+    justify-content: space-around;
+} 
+
+.score-display {
+    margin: 0 auto;
+    width: 150px;
+    height: 120px;
+    display: flex;
+    background-color: black;
+    font-family: "CursedTimer";
+    justify-content: center;
+    align-items: center;
+}
+
+.score {
+    color: #F94F6D;
+    font-size: 90px;
+}
+
+.score-controls {
+    padding: 20px 5px;
+}
+
+.score-increment-btn {
+    margin: 5px;
+    height: 45px;
+    width: 45px;
+}
+
+#new-game-btn {
+    margin: 15px 0;
+    height: 45px;
+    width: 150px;
+}
+
+.winning {
+    border: 5px solid yellow;
+}

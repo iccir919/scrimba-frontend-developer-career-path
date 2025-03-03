@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Karla:ital,wght@0,200..800;1,200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Smythe&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="index.css">
+        <title>Restaurant Ordering App</title>
+    </head>
+    <body>
+        <div class="app-container">
+            <header>
+                <h1>Jimmy's Diner</h1>
+                <p>The best burgers and pizzas in town.</p>
+            </header>
+            <div id="menu-items-container">
+
+            </div>
+            <div id="order-summary-container">
+                <h2 class="order-summary-title center-text">Your order</h2>
+                <div id="order-items-container">
+    
+                </div>
+                <hr>
+                <div class="order-total-container">
+                    <h2 class="order-total-title">Total price:</h2>
+                    <p class="item-price align-right" id="total-order-price">$0</p>
+                </div>
+                <button class="success-btn" id="complete-order-btn">Complete order</button>
+            </div>
+        </div>
+        <div class="modal" id="modal">
+            <form id="order-payment-form">
+                <h2 class="modal-title center-text">Enter card details</h2>
+                <div class="modal-inputs-container">
+                    <input id="name" class="modal-input" type="text" placeholder="Enter your name" required>
+                    <input class="modal-input" type="text" placeholder="Enter card number" required>
+                    <input class="modal-input" text="text" placeholder="Enter CVV" required>
+                </div>
+                <button class="success-btn" id="pay-order-btn">Pay</button>
+            </form>
+        </div>
+	<script type="module" src="index.js"></script>
+    </body>
+</html>
+

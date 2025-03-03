@@ -1,0 +1,100 @@
+/**
+Palette: https://scrimba.com/links/hometown-palette
+RED: #E63946
+LIGHT: #F1FAEE
+AQUA: #A8DADC
+LIGHT BLUE: #457B9D
+DARK BLUE: #1D3557
+
+*/
+
+body {
+    margin: 0;
+    text-align: center;
+    font-family: "Urbanist", sans-serif;
+}
+
+h3 {
+    font-size: 150%;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+a {
+    color: #588157;
+}
+
+
+a:visited {
+    color: #A3B18A;
+}
+
+
+#hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+    background-image: url("images/oakland.webp");
+    background-size: cover;
+    color: white;
+}
+
+#title {
+    padding: 15px 35px;
+    background-color: #344E41;
+}
+
+#subtitle {
+    margin: 10px 25px;
+    padding: 15px 35px;
+    background-color: #588157;
+}
+
+#activities-section {
+    color: #344E41;
+    padding: 25px 75px;
+    background-color: #DAD7CD;
+}
+
+#activities {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.activity {
+    margin: 25px 50px;
+    width: 250px;
+}
+
+.activity img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;;
+}
+
+#guide-section {
+    margin: 50px auto;
+    padding: 25px;
+    background-color: #A3B18A;
+    display: flex;
+    justify-content: center;
+    width: 400px;
+    border-bottom: 10px solid #3A5A40;
+}
+
+#guide-profile-pic {
+    width: 200px;
+}
+
+#guide-bio {
+    padding: 0 25px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

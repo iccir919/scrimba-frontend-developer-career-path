@@ -1,0 +1,182 @@
+body {
+    margin: 0;
+    font-family: "Smythe", system-ui;
+} 
+
+.app-container {
+    width: 600px;
+    margin: 0 auto;
+}
+
+#menu-items-container, #order-summary-container {
+    margin: 45px;
+}
+
+.align-right {
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.center-text {
+    text-align: center;
+}
+
+header {
+    background-image: url('images/bg-img.png');
+    height: 165px;
+    color: white;
+    padding-left: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: normal;
+}
+
+header h1 {
+    font-size: 39px;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+header p {
+    font-size: 22px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.menu-item {
+    display: flex;
+    border-bottom: 1px solid #D2D2D2;
+}
+
+.add-menu-item-btn {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid #DEDEDE;
+    color: #3C3C3C;
+    font-size: 23px;
+}
+
+.menu-item-emoji {
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 70px;
+    font-size: 80px;
+}
+
+.menu-item-details {
+    margin-top: 5px;
+    margin-left: 30px;
+}
+
+.item-name, .order-total-title {
+    margin: 0;
+    font-size: 28px;
+}
+
+.item-ingredients {
+    margin-top: 5px;
+    margin-bottom: 8px;
+    color: #8B8B8B;
+}
+
+.item-price {
+    font-size: 20px;
+}
+
+#order-summary-container {
+    margin-bottom: 50px;
+}
+
+.order-summary-title {
+    font-size: 28px;
+}
+
+.order-item-container, .order-total-container {
+    display: flex;
+    align-items: center;
+}
+
+.remove-order-item-btn {
+    padding-top: 5px;
+    border: none;
+    background: none;
+    margin-left: 10px;
+    color: #BBBBBB;
+}
+
+.remove-order-item-btn:hover, 
+.add-menu-item-btn:hover,
+.success-btn:hover {
+    cursor: pointer;
+}
+
+.order-item-container {
+    margin-top: 5px;
+}
+
+.success-btn {
+    margin-top: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: block;
+    width: 100%;
+    background-color: #16DB99;
+    color: white;
+    border: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#complete-order-btn {
+    display: none;
+}
+
+.modal {
+    display: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 500px;
+    height: 540px;
+    background-color: white;
+    box-shadow: 0 0 25px 25px #6a6a6a39;
+    padding: 25px;
+}
+
+.modal-inputs-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+    margin-bottom: 75px;
+}
+
+.modal-title {
+    margin-top: 45px;
+    margin-bottom: 45px;
+}
+
+.modal-input {
+    margin-top: 25px;
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 20px 25px;
+    border: 1px solid #757575;
+}
+
+.order-success-text {
+    text-align: center;
+    font-size: 28px;
+    font-weight: lighter;
+    padding: 50px 60px;
+    background-color: #ECFDF5;
+    color: #065F46;
+}

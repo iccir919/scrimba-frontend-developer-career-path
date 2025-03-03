@@ -1,0 +1,109 @@
+body {
+    background-color: #1C1C1C;
+    font-family: "Karla", sans-serif;
+}
+
+.green-text {
+    color: #10B981;
+}
+
+.container {
+    margin: 50px auto;
+    padding: 15px 35px;
+    width: 550px;
+    background-color: #ECFDF5;
+}
+
+h1 {
+    margin-top: 50px;
+    margin-bottom: 10px;
+    line-height: 40px;
+    font-size: 40px;
+    font-weight: 900;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 60px;
+    color: #6B7280;
+    font-weight: 300;
+    font-size: 20px;
+}
+
+
+.password-options-container {
+    width: 450px;
+    display: flex;
+    justify-content: space-between;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+    max-width: 450px;
+}
+
+fieldset input {
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+input[type="number"] {
+    width: 75px;
+    height: 20px;
+}
+
+legend {
+    font-weight: bold;
+}
+
+button {
+    padding: 15px 25px;
+    font-family: inherit;
+    border: none;
+    border-radius: 10px;
+}
+
+#submit-btn {
+    background-color: #10B981;
+    color: white;
+    font-size: 17px;
+    margin: 20px 0;
+    cursor: pointer;
+}
+
+
+
+hr {
+    margin: 20px 0;
+    color: #6B7280;
+}
+
+.results-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 75px;
+}
+
+.result-display {
+    background-color: #273549;
+    width: 240px;
+    height: 50px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 25px 0;
+}
+
+.result-text {
+    line-height: 15px;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.enabled-result-button {
+    cursor: pointer;
+}
+
+.enabled-result-button:hover {
+    background-color: #3b506d;
+}
