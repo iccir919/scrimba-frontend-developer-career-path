@@ -137,6 +137,7 @@ header p {
 }
 
 .modal {
+    position: relative;
     display: none;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     position: fixed;
@@ -150,6 +151,14 @@ header p {
     background-color: white;
     box-shadow: 0 0 25px 25px #6a6a6a39;
     padding: 25px;
+}
+
+#close-modal-btn {
+    cursor: pointer;
+    position: absolute;
+    padding: 10px 15px;
+    top: 15px;
+    right: 15px;
 }
 
 .modal-inputs-container {
