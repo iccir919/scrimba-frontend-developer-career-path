@@ -5,8 +5,8 @@ const orderItemsContainer = document.getElementById('order-items-container')
 let orderItems = []
 
 function handleRemoveItemBtnClick(e) {
-    const removeItemId = parseInt(e.target.dataset.removeBtnItemId)
-    orderItems = orderItems.filter(item => item.id !== removeItemId)
+    const removeOrderItemIdx = parseInt(e.target.dataset.removeBtnItemIdx)
+    orderItems = orderItems.filter((item, idx) => idx !== removeOrderItemIdx)
     renderOrderItems()
 }
 
@@ -22,6 +22,8 @@ function handleCompleteOrderBtn(e) {
 
     const modal = document.getElementById('modal')
     modal.style.display = 'block'
+    const closeModalBtn = document.getElementById('close-modal-btn')
+    closeModalBtn.addEventListener('click', handlePaymentFormClose)
 
     const orderPaymentForm = document.getElementById('order-payment-form')
     orderPaymentForm.onsubmit = handlePaymentFormSubmit
@@ -51,6 +53,17 @@ function renderMenuItems() {
     
 }
 
+function handlePaymentFormClose(e) {
+    console.log("Test")
+    e.preventDefault()
+
+    const orderPaymentForm = document.getElementById('order-payment-form')
+    orderPaymentForm.reset()
+
+    const modal = document.getElementById('modal')
+    modal.style.display ='none'
+}
+
 function handlePaymentFormSubmit(e) {
     e.preventDefault()
 
@@ -68,10 +81,10 @@ function handlePaymentFormSubmit(e) {
 function renderOrderItems() {
 
 
-    const orderItemsHtml = orderItems.map( ({id, name, price}) => `
+    const orderItemsHtml = orderItems.map( ({id, name, price}, idx) => `
         <div class="order-item-container">
             <h3 class="item-name">${name}</h3>
-            <button class="remove-order-item-btn" data-remove-btn-item-id=${id}>remove</button>
+            <button class="remove-order-item-btn" data-remove-btn-item-idx=${idx}>remove</button>
             <p class="item-price align-right">$${price}</p>
         </div>
     `).join('')
