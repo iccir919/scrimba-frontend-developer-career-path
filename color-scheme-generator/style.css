@@ -1,0 +1,35 @@
+html,
+body {
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.form-container {
+    margin: 2em 1em;
+    display: grid;
+    grid-template-columns: minmax(3rem, 2fr) minmax(6rem, 5fr) minmax(min-content, 4fr);
+    gap: 1.5em;
+}
+
+.seed-color-input {
+    width: 100%;
+    height: 100%;
+}
+
+.form-dropdown-input,
+.submit-btn {
+    padding: .75em 1.75em;
+}
+
+.form-dropdown-input {
+    font-size: 1rem;
+}
+
+.submit-btn {
+    font-size: .95rem;
+    background-color: white;
+    border: 1px solid black;
+}
