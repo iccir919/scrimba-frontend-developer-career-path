@@ -29,7 +29,24 @@ body {
 }
 
 .submit-btn {
+    cursor: pointer;
     font-size: .95rem;
     background-color: white;
     border: 1px solid black;
+}
+
+.color-scheme-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.color-display {
+    height: 75vh;
+}
+
+.color-text-value {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
