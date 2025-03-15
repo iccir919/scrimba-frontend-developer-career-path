@@ -15,15 +15,48 @@ function getColorScheme(hexColor, mode) {
 }
 
 function renderColorScheme(colorsArr) {
-    colorsArr.forEach((color, idx) => {
-        const display = document.getElementById(`display-color-${idx + 1}`)
-        const text = document.getElementById(`text-value-color-${idx + 1}`)
 
-        display.style.backgroundColor = color.hex.value
-        text.textContent = color.hex.value
+    colorsArr.forEach((color, idx) => {
+        const colorDisplay = document.getElementById(`display-color-${idx + 1}`)
+        const colorValueBtn = document.getElementById(`text-value-btn-color-${idx + 1}`)
+        colorValueBtn.dataset.hexColorValue = color.hex.value
+
+        colorDisplay.style.backgroundColor = color.hex.value
+        colorValueBtn.textContent = color.hex.value
     })
 }
 
+function handleColorTextBtnClick(el) {
+    const hexColorValue = el.dataset.hexColorValue
+    navigator.clipboard.writeText(hexColorValue)
+
+    const clipboardAlertText = document.getElementById("clipboard-alert-text")
+    clipboardAlertText.classList.add("show")
+
+    setTimeout(() => {
+        clipboardAlertText.classList.remove("show");
+    }, 1000);
+}
+
+
+function buildColorSchemeContainer() {
+    let html = ''
+    for (let idx = 1; idx < 6; idx++) {
+        html += `
+            <div class="color-container">
+                <div class="color-display" id="display-color-${idx}"></div>
+                <button
+                    onClick="handleColorTextBtnClick(this)"
+                    class="text-value-color-btn" 
+                    id="text-value-btn-color-${idx}"
+                >
+                    #0000
+                </button>
+            </div>
+        `
+    }
+    document.getElementById("color-scheme-container").innerHTML = html
+}
 
 function getRandomHexColor() {
     const letters = '0123456789ABCDEF';
@@ -35,6 +68,7 @@ function getRandomHexColor() {
 }
   
 function intialize() {
+    buildColorSchemeContainer()
     const randomHexColor = getRandomHexColor()
     document.getElementById("seed-color").value = `#${randomHexColor}`
     getColorScheme(randomHexColor, 'monochrome')

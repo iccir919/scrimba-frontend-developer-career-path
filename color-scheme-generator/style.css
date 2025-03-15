@@ -44,9 +44,40 @@ body {
     height: 75vh;
 }
 
-.color-text-value {
-    text-align: center;
-    font-size: 1.25rem;
-    font-weight: bold;
+.text-value-color-btn {
+    cursor: pointer;
+    padding: 1.5em 0.5em;
+    width: 100%;
+    font-size: 1.15rem;
+    background-color: white;
+    border: none;
     letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.text-value-color-btn:hover,
+.text-value-color-btn:focus {
+    font-size: 1.25rem;
+}
+
+
+.clipboard-alert-text {
+    position: fixed;
+    bottom: 0.25em;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    padding: 1em 2em;
+    border-radius: 5px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
+
+.clipboard-alert-text.show {
+    opacity: 1;
+    visibility: visible;
 }
