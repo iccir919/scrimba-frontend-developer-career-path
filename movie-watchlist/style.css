@@ -17,7 +17,7 @@ header {
     width: 100%;
     height: 25vh;
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-        url("header-background-img.png");
+        url("images/header-background-img.png");
     background-size: cover;
     background-position: center;
 }
@@ -34,4 +34,29 @@ header {
 .page-title, .nav-link {
     color: white;
     font-weight: bold;
+}
+
+form {
+    margin-top: -25px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    display: flex;
+}
+
+#search-input {
+    width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 1.25rem;
+    background-color: white;
+    background-image: url("images/search.png");
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+}
+
+#search-btn {
+    font-size: 1.25rem;
+    padding: 12px 40px;
 }
