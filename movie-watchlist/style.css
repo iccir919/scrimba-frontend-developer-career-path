@@ -60,3 +60,9 @@ form {
     font-size: 1.25rem;
     padding: 12px 40px;
 }
+
+.movie-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    
+}
