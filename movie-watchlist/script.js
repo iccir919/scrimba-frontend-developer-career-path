@@ -62,13 +62,14 @@ function getMovieDetails(movie) {
     fetch(omdbApiUrl + "i=" + movie["imdbID"])
         .then(response => response.json())
         .then(movie => {
-            renderMovie(movie)
+            renderMovie(movie, "search")
         })
 }
 
 
 
-function renderMovie(movie) {
+function renderMovie(movie, pageType) {
+
     const movieContainer = document.createElement("div")
     movieContainer.classList.add("movie-container")
     movieContainer.innerHTML = `
@@ -77,18 +78,35 @@ function renderMovie(movie) {
             src="${movie["Poster"]}" 
             alt="Movie poster for ${movie["Title"]}" 
         />
-        <div class="movie-stats-container">
+        <div class="movie-info-container">
             <div class="movie-stats-top-row">
-                <h2 class="movie-title">${movie["Title"]}</h2>
-                <p class="movie-detail">IMDB rating: ${movie["imdbRating"]}</p>
+                <h2 class="movie-title movie-detail">${movie["Title"]}</h2>
+                <p class="movie-rating movie-detail">⭐ ${movie["imdbRating"]}</p>
             </div>
             <div class="movie-stats-bottom-row">
-                <p class="movie-detail movie-runtime">${movie["Runtime"]}</p>
-                <p class="movie-detail movie-category">${movie["Genre"]}</p>
-                <button>Watchlist</button>
+                <p class="movie-runtime movie-detail">${movie["Runtime"]}</p>
+                <p class="movie-category movie-detail">${movie["Genre"]}</p>
+                ${renderMovieActionButton(movie, pageType)}
             </div>
+            <p class="movie-plot">${movie["Plot"]}</p>
         </div>
-        <p class="movie-plot">${movie["Plot"]}</p>
     `
     searchResultContainer.appendChild(movieContainer)
 }
+
+function renderMovieActionButton(movie, pageType) {
+    if (pageType === "search") {
+        return `
+            <button
+                class="movie-action-btn"
+                id="${movie["imd"]}"
+                type="button"
+            >
+                <img src="images/add-icon.png" alt="Add icon" />
+                Watchlist
+            </button>
+        `
+    }
+}
+
+renderMovie(findingNemo, "search")

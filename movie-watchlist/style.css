@@ -61,39 +61,36 @@ form {
     padding: 12px 40px;
 }
 
+main {
+    max-width: 980px;
+    margin: auto;
+}
+
 #movie-search-results-container {
-    margin: 3em;
-}
-
-
-.movie-stats-container {
-    grid-area: stat;
-}
-
-.movie-poster {
-    padding: 1em;
-    grid-area: pstr;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.movie-plot {
-    grid-area: plot;
+    width: 75%;
+    margin: 3em auto;
 }
 
 .movie-container {
     margin: 1em;
-    width: 100%;
     height: 25%;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-areas: 
-        "pstr pstr stat stat stat stat"
-        "pstr pstr plot plot plot plot";
+        "pstr pstr info info info info"
+        "pstr pstr info info info info";
 }
 
-.movie-stats-container {
+.movie-poster {
+    max-height: 300px;
+    grid-area: pstr;
+    padding: 1em;
+    object-fit: cover;
+}
+
+
+.movie-info-container {
+    grid-area: info;
     display: flex;
     flex-direction: column;
 }
@@ -104,11 +101,33 @@ form {
     align-items: center;
 }
 
+.movie-detail {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
 .movie-stats-top-row {
+    margin-top: 2em;
     justify-content: flex-start;
+    gap: 1em;
 }
 
 .movie-stats-bottom-row {
     justify-content: flex-start;
-    gap: 1em;
+    gap: 0.5em;
+}
+
+.movie-plot {
+    line-height: 1.5;
+}
+
+.movie-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.25em;
+    background-color: white;
+    padding: 0.25em;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
 }
