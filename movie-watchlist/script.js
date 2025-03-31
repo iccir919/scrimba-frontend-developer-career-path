@@ -7,47 +7,6 @@ const searchBtn = document.getElementById("search-btn")
 const moviesContainer = document.getElementById("movies-container")
 const omdbApiUrl = "http://www.omdbapi.com/?apikey=3868c4dd&"
 
-const findingNemo = {
-    "Title": "Finding Nemo",
-    "Year": "2003",
-    "Rated": "G",
-    "Released": "30 May 2003",
-    "Runtime": "100 min",
-    "Genre": "Animation, Adventure, Comedy",
-    "Director": "Andrew Stanton, Lee Unkrich",
-    "Writer": "Andrew Stanton, Bob Peterson, David Reynolds",
-    "Actors": "Albert Brooks, Ellen DeGeneres, Alexander Gould",
-    "Plot": "After his son is captured in the Great Barrier Reef and taken to Sydney, a timid clownfish sets out on a journey to bring him home.",
-    "Language": "English, Japanese, Russian",
-    "Country": "United States, Japan",
-    "Awards": "Won 1 Oscar. 49 wins & 63 nominations total",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BMTc5NjExNTA5OV5BMl5BanBnXkFtZTYwMTQ0ODY2._V1_SX300.jpg",
-    "Ratings": [
-        {
-            "Source": "Internet Movie Database",
-            "Value": "8.2/10"
-        },
-        {
-            "Source": "Rotten Tomatoes",
-            "Value": "99%"
-        },
-        {
-            "Source": "Metacritic",
-            "Value": "90/100"
-        }
-    ],
-    "Metascore": "90",
-    "imdbRating": "8.2",
-    "imdbVotes": "1,150,718",
-    "imdbID": "tt0266543",
-    "Type": "movie",
-    "DVD": "N/A",
-    "BoxOffice": "$380,843,261",
-    "Production": "N/A",
-    "Website": "N/A",
-    "Response": "True"
-}
-
 function getMovieSearchResults(searchTerm, pageNumber) {
     moviesContainer.innerHTML = ""
     fetch(omdbApiUrl + "s=" + encodeURIComponent(searchTerm) + "&page=" + pageNumber)
@@ -78,11 +37,20 @@ function renderMovie(movie) {
     movieContainer.classList.add("movie-container")
     movieContainer.id = movie["imdbID"]
     movieContainer.innerHTML = `
-        <img 
-            class="movie-poster"
-            src="${movie["Poster"]}" 
-            alt="Movie poster for ${movie["Title"]}" 
-        />
+        <div class="movie-poster-container">
+            ${movie["Poster"] === "N/A" ? 
+                `<img 
+                    class="movie-poster"
+                    src="images/no-poster.jpg" 
+                    alt="Movie poster not available" 
+                />` :
+                `<img 
+                    class="movie-poster"
+                    src="${movie["Poster"]}" 
+                    alt="Movie poster for ${movie["Title"]}" 
+                />`
+            }
+        </div>
         <div class="movie-info-container">
             <div class="movie-stats-top-row">
                 <h2 class="movie-title movie-detail">${movie["Title"]}</h2>
@@ -94,6 +62,7 @@ function renderMovie(movie) {
             </div>
             <p class="movie-plot">${movie["Plot"]}</p>
         </div>
+        <hr class="movie-divider" />
     `
     moviesContainer.appendChild(movieContainer)
     renderMovieActionButton(movie["imdbID"])
@@ -256,4 +225,45 @@ function renderMoviesContainer() {
         } 
     }
 
+}
+
+const findingNemo = {
+    "Title": "Finding Nemo",
+    "Year": "2003",
+    "Rated": "G",
+    "Released": "30 May 2003",
+    "Runtime": "100 min",
+    "Genre": "Animation, Adventure, Comedy",
+    "Director": "Andrew Stanton, Lee Unkrich",
+    "Writer": "Andrew Stanton, Bob Peterson, David Reynolds",
+    "Actors": "Albert Brooks, Ellen DeGeneres, Alexander Gould",
+    "Plot": "After his son is captured in the Great Barrier Reef and taken to Sydney, a timid clownfish sets out on a journey to bring him home.",
+    "Language": "English, Japanese, Russian",
+    "Country": "United States, Japan",
+    "Awards": "Won 1 Oscar. 49 wins & 63 nominations total",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BMTc5NjExNTA5OV5BMl5BanBnXkFtZTYwMTQ0ODY2._V1_SX300.jpg",
+    "Ratings": [
+        {
+            "Source": "Internet Movie Database",
+            "Value": "8.2/10"
+        },
+        {
+            "Source": "Rotten Tomatoes",
+            "Value": "99%"
+        },
+        {
+            "Source": "Metacritic",
+            "Value": "90/100"
+        }
+    ],
+    "Metascore": "90",
+    "imdbRating": "8.2",
+    "imdbVotes": "1,150,718",
+    "imdbID": "tt0266543",
+    "Type": "movie",
+    "DVD": "N/A",
+    "BoxOffice": "$380,843,261",
+    "Production": "N/A",
+    "Website": "N/A",
+    "Response": "True"
 }

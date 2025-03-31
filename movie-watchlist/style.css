@@ -95,22 +95,41 @@ main {
     width: 75%;
     height: 25%;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: 1fr;
+    grid-auto-flow: column;
     grid-template-areas: 
-        "pstr pstr info info info info"
-        "pstr pstr info info info info";
+        "pstr"
+        "info"
+        "divi" 
+}
+
+.movie-poster-container {
+    grid-area: pstr;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 300px;
+    max-width: 225px;
 }
 
 .movie-poster {
-    max-height: 300px;
-    max-width: 225px;
-    grid-area: pstr;
+    margin: auto;
+    width: 100%;
+    height: 100%;
     padding: 1em;
     object-fit: cover;
 }
 
 .movie-info-container {
     grid-area: info;
+    margin-bottom: 2em;
+}
+
+.movie-divider {
+    grid-area: divi;
+    border: 1px solid #979797;
+    color: #979797;
+    width: 100%;
 }
 
 .movie-stats-top-row,
@@ -188,4 +207,14 @@ footer a {
 footer a:hover,
 footer a:focus {
     text-decoration: underline;
+}
+
+@media only screen and (min-width: 992px) {
+    .movie-container {
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-areas: 
+            "pstr pstr info info info info"
+            "pstr pstr info info info info"
+            "divi divi divi divi divi divi";
+    }
 }
