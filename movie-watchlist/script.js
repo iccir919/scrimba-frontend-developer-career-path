@@ -5,7 +5,7 @@ let searchResults = null
 const searchInput = document.getElementById("search-input")
 const searchBtn = document.getElementById("search-btn")
 const moviesContainer = document.getElementById("movies-container")
-const omdbApiUrl = "http://www.omdbapi.com/?apikey=3868c4dd&"
+const omdbApiUrl = "https://www.omdbapi.com/?apikey=3868c4dd&"
 
 function getMovieSearchResults(searchTerm, pageNumber) {
     moviesContainer.innerHTML = ""
