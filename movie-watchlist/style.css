@@ -10,7 +10,12 @@ body {
     font-family: "Inter", sans-serif;
 }
 
+main {
+    padding-bottom: 6em;
+}
+
 header {
+    padding-bottom: 2em;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -58,7 +63,7 @@ form {
 
 #search-btn {
     font-size: 1.25rem;
-    padding: 12px 40px;
+    padding: 0.65em 2.25em;
 }
 
 main {
@@ -66,13 +71,28 @@ main {
     margin: auto;
 }
 
-#movie-search-results-container {
-    width: 75%;
+#movies-container {
     margin: 3em auto;
 }
 
+.movies-placeholder {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #979797;
+}
+
+.movies-placeholder a {
+    text-decoration: none;
+    color: black;
+}
+
+.movies-placeholder a:hover {
+    text-decoration: underline;
+}
+
 .movie-container {
-    margin: 1em;
+    margin: 1em auto;
+    width: 75%;
     height: 25%;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -83,16 +103,14 @@ main {
 
 .movie-poster {
     max-height: 300px;
+    max-width: 225px;
     grid-area: pstr;
     padding: 1em;
     object-fit: cover;
 }
 
-
 .movie-info-container {
     grid-area: info;
-    display: flex;
-    flex-direction: column;
 }
 
 .movie-stats-top-row,
@@ -119,6 +137,7 @@ main {
 
 .movie-plot {
     line-height: 1.5;
+    color: rgb(74, 74, 74);
 }
 
 .movie-action-btn {
@@ -130,4 +149,43 @@ main {
     border: none;
     font-size: 1rem;
     cursor: pointer;
+}
+
+.movie-action-btn:hover {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+#pagination-container {
+    display: flex;
+    justify-content: center;
+    gap: 2.5em;
+    margin-top: 3.5em;
+}
+
+.pagination-btn {
+    cursor: pointer;
+    padding: 0.5em 2em;
+    font-size: 1em;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding: 1.5em 3.5em;
+    text-align: center;
+}
+
+footer a {
+    margin-top: 2em;
+    color: gray;
+    text-decoration: none;
+}
+
+footer a:hover,
+footer a:focus {
+    text-decoration: underline;
 }

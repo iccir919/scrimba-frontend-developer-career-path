@@ -1,7 +1,10 @@
 
+let pageNumber = 1
+let searchTerm = ""
+let searchResults = null
 const searchInput = document.getElementById("search-input")
 const searchBtn = document.getElementById("search-btn")
-const searchResultContainer = document.getElementById("movie-search-results-container")
+const moviesContainer = document.getElementById("movies-container")
 const omdbApiUrl = "http://www.omdbapi.com/?apikey=3868c4dd&"
 
 const findingNemo = {
@@ -45,33 +48,35 @@ const findingNemo = {
     "Response": "True"
 }
 
-searchBtn.addEventListener("click", async (e) => {
-    e.preventDefault()
-
-    const movie = searchInput.value
-
-    fetch(omdbApiUrl + "s=" + encodeURIComponent(movie))
+function getMovieSearchResults(searchTerm, pageNumber) {
+    moviesContainer.innerHTML = ""
+    fetch(omdbApiUrl + "s=" + encodeURIComponent(searchTerm) + "&page=" + pageNumber)
         .then(response => response.json())
         .then(result => {
-            result["Search"].forEach(movie => getMovieDetails(movie))
+            if (result["Search"]) {
+                searchResults = result["Search"].map(movie => movie["imdbID"])
+                handlePagination(result.totalResults)
+            } else {
+                searchResults = "Error"
+            }
+            renderMoviesContainer()
         })
+}
 
-})
-
-function getMovieDetails(movie) {
-    fetch(omdbApiUrl + "i=" + movie["imdbID"])
+function getMovieDetails(imdbID) {
+    fetch(omdbApiUrl + "i=" + imdbID)
         .then(response => response.json())
         .then(movie => {
-            renderMovie(movie, "search")
+            renderMovie(movie)
         })
 }
 
 
 
-function renderMovie(movie, pageType) {
-
+function renderMovie(movie) {
     const movieContainer = document.createElement("div")
     movieContainer.classList.add("movie-container")
+    movieContainer.id = movie["imdbID"]
     movieContainer.innerHTML = `
         <img 
             class="movie-poster"
@@ -86,27 +91,169 @@ function renderMovie(movie, pageType) {
             <div class="movie-stats-bottom-row">
                 <p class="movie-runtime movie-detail">${movie["Runtime"]}</p>
                 <p class="movie-category movie-detail">${movie["Genre"]}</p>
-                ${renderMovieActionButton(movie, pageType)}
             </div>
             <p class="movie-plot">${movie["Plot"]}</p>
         </div>
     `
-    searchResultContainer.appendChild(movieContainer)
+    moviesContainer.appendChild(movieContainer)
+    renderMovieActionButton(movie["imdbID"])
 }
 
-function renderMovieActionButton(movie, pageType) {
-    if (pageType === "search") {
-        return `
-            <button
-                class="movie-action-btn"
-                id="${movie["imd"]}"
-                type="button"
-            >
+function renderMovieActionButton(imdbID) {
+
+    const actionButton = document.createElement("button")
+    actionButton.classList.add("movie-action-btn")
+    actionButton.setAttribute("imdbID", imdbID)
+
+    if (document.location.pathname.includes("index.html")) {
+
+        const watchlist = JSON.parse(localStorage.getItem("watchlist"))
+        if (watchlist.includes(imdbID)) {
+            actionButton.onclick = removeFromWatchList
+            actionButton.innerHTML = `
+                <img src="images/remove-icon.png" alt="Remove icon" />
+                Remove
+            `
+        } else {
+            actionButton.onclick = addToWatchlist
+            actionButton.innerHTML = `
                 <img src="images/add-icon.png" alt="Add icon" />
                 Watchlist
-            </button>
+            `
+        }
+
+
+    } else if (document.location.pathname.includes("watchlist.html")) {
+        actionButton.onclick = removeFromWatchList
+        actionButton.innerHTML = `
+            <img src="images/remove-icon.png" alt="Remove icon" />
+            Remove
         `
     }
+
+    document.getElementById(imdbID)
+        .querySelector(".movie-stats-bottom-row")
+        .appendChild(actionButton)
 }
 
-renderMovie(findingNemo, "search")
+function addToWatchlist(e) {
+    const targetMovieID = e.target.getAttribute("imdbID")
+    const watchlist = JSON.parse(localStorage.getItem("watchlist")) || []
+
+    watchlist.push(targetMovieID)
+    localStorage.setItem("watchlist", JSON.stringify(watchlist))
+    
+    moviesContainer.innerHTML = ""
+    searchResults.forEach(imdbID => getMovieDetails(imdbID))
+
+}
+
+function removeFromWatchList(e) {
+    const targetMovieID = e.target.getAttribute("imdbID")
+    let watchlist = JSON.parse(localStorage.getItem("watchlist"))
+
+    watchlist = watchlist.filter(movieID => movieID !== targetMovieID)
+    localStorage.setItem("watchlist", JSON.stringify(watchlist))
+    moviesContainer.innerHTML = ""
+
+    renderMoviesContainer()
+
+}
+
+function handlePagination(totalResults) {
+
+    if (totalResults < 10) return 
+
+    document.getElementById("pagination-container").innerHTML = `
+        <button
+            id="back-btn"
+            class="pagination-btn"
+            type="button"
+            data-next-page-increment="-1"
+            ${pageNumber === 1 ? "disabled" : ""}
+        >
+            &lt; Back
+        </button>
+        <button
+            id="next-btn"
+            class="pagination-btn"
+            type="button"
+            data-next-page-increment="1"
+            ${pageNumber * 10 > totalResults ? "disabled": ""}
+        >
+            Next &gt;
+        </button>
+    `
+    document.querySelectorAll(".pagination-btn").forEach(btn => {
+        btn.addEventListener("click", handlePaginationBtnClick)
+    })
+}
+
+function handlePaginationBtnClick(e) {
+    const nextPageIncrement = Number(e.target.dataset.nextPageIncrement)
+    pageNumber += nextPageIncrement
+
+    moviesContainer.innerHTML = ""
+    getMovieSearchResults(searchTerm, pageNumber)
+}
+
+window.addEventListener("load", function() {
+
+    if (localStorage.getItem("watchlist") === null) {
+        localStorage.setItem("watchlist", JSON.stringify([]))
+    }
+
+    if (window.location.pathname.includes("index.html")) {
+        searchBtn.addEventListener("click", async (e) => {
+            e.preventDefault()
+        
+            searchTerm = searchInput.value
+            pageNumber = 1;
+        
+            getMovieSearchResults(searchTerm, pageNumber)
+        
+        })
+    }
+
+    renderMoviesContainer()
+})
+
+function renderMoviesContainer() {
+    if ( window.location.pathname.includes("watchlist.html") ) {
+        const watchlist = JSON.parse(localStorage.getItem("watchlist"))
+        if (watchlist === null || watchlist.length === 0) {
+            moviesContainer.innerHTML = `
+                <div class="movies-placeholder">
+                    <h2>Your watchlist is looking a little empty...</h2>
+                    <p>
+                        <img src="images/add-icon.png" alt="Add icon" />
+                        <a href="index.html">Let’s add some movies!</a>
+                    </p>
+                <div>
+            `
+        } else {
+            watchlist.forEach(imdbID => getMovieDetails(imdbID))
+        }
+
+    } else if (window.location.pathname.includes("index.html")) {
+        if (searchResults === null) {
+            moviesContainer.innerHTML = `
+                <div class="movies-placeholder">
+                    <img class="placeholder-img" src="images/film-icon.png" alt="film-reel-icon" />
+                    <h2 class="placeholder-message">Start exploring</h2>
+                <div>
+            `
+        } else if (searchResults === "Error") {
+            moviesContainer.innerHTML = `
+                <div class="movies-placeholder">
+                    <p class="placeholder-message">
+                        Unable to find what you’re looking for. Please try another search.
+                    </>
+                <div>
+            `
+        } else if (searchResults.length) {
+            searchResults.forEach(imdbID => getMovieDetails(imdbID))
+        } 
+    }
+
+}
