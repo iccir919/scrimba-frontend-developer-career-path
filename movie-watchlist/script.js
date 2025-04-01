@@ -29,6 +29,7 @@ function fetchMovieDetails(imdbID) {
 function renderMovies() {
     if ( window.location.pathname.includes("watchlist.html") ) {
         const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]")
+        console.log(watchlist)
         if (watchlist.length === 0) {
             moviesContainer.innerHTML = `
                 <div class="movies-placeholder">
@@ -213,7 +214,7 @@ function oldHandlePaginationBtnClick(e) {
     fetchMovies(searchTerm, pageNumber)
 }
 
-document.addEventListener("load", function() {
+window.addEventListener("load", function() {
 
     if (localStorage.getItem("watchlist") === null) {
         localStorage.setItem("watchlist", JSON.stringify([]))
