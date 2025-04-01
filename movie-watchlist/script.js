@@ -101,7 +101,7 @@ function renderMovieActionButton(imdbID) {
     actionButton.classList.add("movie-action-btn")
     actionButton.setAttribute("imdbID", imdbID)
 
-    if (document.location.pathname.includes("index.html")) {
+    if (getPageName() === "index") {
 
         const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]")
         if (watchlist.includes(imdbID)) {
@@ -117,7 +117,7 @@ function renderMovieActionButton(imdbID) {
         }
 
 
-    } else if (document.location.pathname.includes("watchlist.html")) {
+    } else if (getPageName() === "watchlist") {
         actionButton.innerHTML = `
             ➖ Remove
         `
