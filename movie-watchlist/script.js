@@ -1,24 +1,23 @@
 
-// let pageNumber = 1
-// let searchTerm = ""
-// let searchResults = null
-// const searchInput = document.getElementById("search-input")
-// const searchBtn = document.getElementById("search-btn")
-// const paginationContainer = document.getElementById("pagination-container")
-// const moviesContainer = document.getElementById("movies-container")
-// const omdbApiUrl = "https://www.omdbapi.com/?apikey=3868c4dd&"
+let pageNumber = 1
+let searchTerm = ""
+let searchResults = null
+const searchInput = document.getElementById("search-input")
+const searchBtn = document.getElementById("search-btn")
+const paginationContainer = document.getElementById("pagination-container")
+const moviesContainer = document.getElementById("movies-container")
+const omdbApiUrl = "https://www.omdbapi.com/?apikey=3868c4dd&"
 
-// function fetchMovies(searchTerm, pageNumber) {
-//     moviesContainer.innerHTML = ""
-//     fetch(omdbApiUrl + "s=" + encodeURIComponent(searchTerm) + "&page=" + pageNumber)
-//         .then(response => response.json())
-//         .then(result => {
-//             searchResults = result["Search"] ? result["Search"].map(movie => movie["imdbID"]) : "Error"
-
-//             renderMovies()
-//             handlePagination(result.totalResults)
-//         })
-// }
+function fetchMovies(searchTerm, pageNumber) {
+    moviesContainer.innerHTML = ""
+    fetch(omdbApiUrl + "s=" + encodeURIComponent(searchTerm) + "&page=" + pageNumber)
+        .then(response => response.json())
+        .then(result => {
+            searchResults = result["Search"] ? result["Search"].map(movie => movie["imdbID"]) : "Error"
+            handlePagination(result.totalResults)
+            renderMovies()
+        })
+}
 
 // function fetchMovieDetails(imdbID) {
 //     return fetch(omdbApiUrl + "i=" + imdbID)
@@ -26,46 +25,45 @@
 // }
 
 
-// function renderMovies() {
-//     if ( window.location.pathname.includes("watchlist.html") ) {
-//         const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]")
-//         console.log(watchlist)
-//         if (watchlist.length === 0) {
-//             moviesContainer.innerHTML = `
-//                 <div class="movies-placeholder">
-//                     <h2>Your watchlist is looking a little empty...</h2>
-//                     <p>
-//                         <img src="images/add-icon.png" alt="Add icon" />
-//                         <a href="index.html">Let’s add some movies!</a>
-//                     </p>
-//                 <div>
-//             `
-//         } else {
-//             watchlist.forEach(imdbID => fetchMovieDetails(imdbID).then(renderMovie))
-//         }
+function renderMovies() {
+    if ( window.location.pathname.includes("watchlist.html") ) {
+        const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]")
+        if (watchlist.length === 0) {
+            moviesContainer.innerHTML = `
+                <div class="movies-placeholder">
+                    <h2>Your watchlist is looking a little empty...</h2>
+                    <p>
+                        <img src="images/add-icon.png" alt="Add icon" />
+                        <a href="index.html">Let’s add some movies!</a>
+                    </p>
+                <div>
+            `
+        } else {
+            watchlist.forEach(imdbID => fetchMovieDetails(imdbID).then(renderMovie))
+        }
 
-//     } else if (window.location.pathname.includes("index.html")) {
-//         if (searchResults === null) {
-//             moviesContainer.innerHTML = `
-//                 <div class="movies-placeholder">
-//                     <img class="placeholder-img" src="images/film-icon.png" alt="film-reel-icon" />
-//                     <h2 class="placeholder-message">Start exploring</h2>
-//                 <div>
-//             `
-//         } else if (searchResults === "Error") {
-//             moviesContainer.innerHTML = `
-//                 <div class="movies-placeholder">
-//                     <p class="placeholder-message">
-//                         Unable to find what you’re looking for. Please try another search.
-//                     </>
-//                 <div>
-//             `
-//         } else if (searchResults.length) {
-//             searchResults.forEach(imdbID => fetchMovieDetails(imdbID).then(renderMovie))
-//         } 
-//     }
+    } else if (window.location.pathname.includes("index.html")) {
+        if (searchResults === null) {
+            moviesContainer.innerHTML = `
+                <div class="movies-placeholder">
+                    <img class="placeholder-img" src="images/film-icon.png" alt="film-reel-icon" />
+                    <h2 class="placeholder-message">Start exploring</h2>
+                <div>
+            `
+        } else if (searchResults === "Error") {
+            moviesContainer.innerHTML = `
+                <div class="movies-placeholder">
+                    <p class="placeholder-message">
+                        Unable to find what you’re looking for. Please try another search.
+                    </>
+                <div>
+            `
+        } else if (searchResults.length) {
+            searchResults.forEach(imdbID => fetchMovieDetails(imdbID).then(renderMovie))
+        } 
+    }
 
-// }
+}
 
 
 
@@ -176,108 +174,16 @@
 //     fetchMovies(searchTerm, pageNumber);
 // }
 
-// function oldHandlePagination(totalResults) {
-//     console.log(totalResults)
-//     if (totalResults < 10 || totalResults === undefined) return 
-
-//     document.getElementById("pagination-container").innerHTML = `
-//         <button
-//             id="back-btn"
-//             class="pagination-btn"
-//             type="button"
-//             data-next-page-increment="-1"
-//             ${pageNumber === 1 ? "disabled" : ""}
-//         >
-//             &lt; Back
-//         </button>
-//         <button
-//             id="next-btn"
-//             class="pagination-btn"
-//             type="button"
-//             data-next-page-increment="1"
-//             ${pageNumber * 10 > totalResults ? "disabled": ""}
-//         >
-//             Next &gt;
-//         </button>
-//     `
-//     document.querySelectorAll(".pagination-btn").forEach(btn => {
-//         btn.addEventListener("click", handlePaginationBtnClick)
-//     })
-// }
-
-// function oldHandlePaginationBtnClick(e) {
-
-//     const nextPageIncrement = Number(e.target.dataset.nextPageIncrement)
-//     pageNumber += nextPageIncrement
-
-//     moviesContainer.innerHTML = ""
-//     fetchMovies(searchTerm, pageNumber)
-// }
-
-// window.addEventListener("load", function() {
-
-//     if (localStorage.getItem("watchlist") === null) {
-//         localStorage.setItem("watchlist", JSON.stringify([]))
-//     }
-
-//     if (window.location.pathname.includes("index.html")) {
-//         searchBtn.addEventListener("click", async (e) => {
-//             e.preventDefault()
-        
-//             searchTerm = searchInput.value
-//             pageNumber = 1;
-        
-//             fetchMovies(searchTerm, pageNumber)
-        
-//         })
-//     }
-
-//     renderMovies()
-// })
-
-
-
-// const findingNemo = {
-//     "Title": "Finding Nemo",
-//     "Year": "2003",
-//     "Rated": "G",
-//     "Released": "30 May 2003",
-//     "Runtime": "100 min",
-//     "Genre": "Animation, Adventure, Comedy",
-//     "Director": "Andrew Stanton, Lee Unkrich",
-//     "Writer": "Andrew Stanton, Bob Peterson, David Reynolds",
-//     "Actors": "Albert Brooks, Ellen DeGeneres, Alexander Gould",
-//     "Plot": "After his son is captured in the Great Barrier Reef and taken to Sydney, a timid clownfish sets out on a journey to bring him home.",
-//     "Language": "English, Japanese, Russian",
-//     "Country": "United States, Japan",
-//     "Awards": "Won 1 Oscar. 49 wins & 63 nominations total",
-//     "Poster": "https://m.media-amazon.com/images/M/MV5BMTc5NjExNTA5OV5BMl5BanBnXkFtZTYwMTQ0ODY2._V1_SX300.jpg",
-//     "Ratings": [
-//         {
-//             "Source": "Internet Movie Database",
-//             "Value": "8.2/10"
-//         },
-//         {
-//             "Source": "Rotten Tomatoes",
-//             "Value": "99%"
-//         },
-//         {
-//             "Source": "Metacritic",
-//             "Value": "90/100"
-//         }
-//     ],
-//     "Metascore": "90",
-//     "imdbRating": "8.2",
-//     "imdbVotes": "1,150,718",
-//     "imdbID": "tt0266543",
-//     "Type": "movie",
-//     "DVD": "N/A",
-//     "BoxOffice": "$380,843,261",
-//     "Production": "N/A",
-//     "Website": "N/A",
-//     "Response": "True"
-// }
 
 window.addEventListener("load", () => {
-    console.log("Test")
+    localStorage.getItem("watchlist") || localStorage.setItem("watchlist", JSON.stringify([]))
+
+    if (window.location.pathname.includes("index.html")) {
+        searchBtn.addEventListener("click", async (e) => {
+            e.preventDefault()
+            searchTerm = searchInput.value.trim()
+            pageNumber = 1;
+            fetchMovies(searchTerm, pageNumber)
+        })
+    }
 })
