@@ -159,7 +159,7 @@ function removeFromWatchList(e) {
 }
 
 function handlePagination(totalResults) {
-    if (totalResults <= 10) return;
+    if (totalResults <= 10 || totalResults === undefined) return;
 
     paginationContainer.innerHTML = `
         <button id="back-btn" class="pagination-btn" ${pageNumber === 1 ? "disabled" : ""}>&lt; Back</button>
@@ -213,7 +213,7 @@ function oldHandlePaginationBtnClick(e) {
     fetchMovies(searchTerm, pageNumber)
 }
 
-window.addEventListener("load", function() {
+document.addEventListener("load", function() {
 
     if (localStorage.getItem("watchlist") === null) {
         localStorage.setItem("watchlist", JSON.stringify([]))
