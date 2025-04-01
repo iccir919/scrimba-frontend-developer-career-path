@@ -277,3 +277,7 @@
 //     "Website": "N/A",
 //     "Response": "True"
 // }
+
+window.addEventListener("load", () => {
+    console.log("Test")
+})
