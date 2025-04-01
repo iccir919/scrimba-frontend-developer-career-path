@@ -26,8 +26,8 @@ function fetchMovieDetails(imdbID) {
 
 
 function renderMovies() {
-    if ( window.location.pathname.includes("watchlist.html") ) {
-        const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]")
+    if ( window.location.pathname === "/movie-watchlist/watchlist" || window.location.pathname === "/movie-watchlist/watchlist.html") {
+        const watchlist = JSON.parse(localStorage.getItem("watchlist"))
         if (watchlist.length === 0) {
             moviesContainer.innerHTML = `
                 <div class="movies-placeholder">
@@ -42,7 +42,8 @@ function renderMovies() {
             watchlist.forEach(imdbID => fetchMovieDetails(imdbID).then(renderMovie))
         }
 
-    } else if (window.location.pathname.includes("index.html")) {
+    } else if (window.location.pathname === "/movie-watchlist/" || window.location.pathname === "/movie-watchlist/index.html") {
+        console.log("Test")
         if (searchResults === null) {
             moviesContainer.innerHTML = `
                 <div class="movies-placeholder">
