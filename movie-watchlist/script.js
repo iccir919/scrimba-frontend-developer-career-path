@@ -26,7 +26,7 @@ function fetchMovieDetails(imdbID) {
 
 
 function renderMovies() {
-    if ( window.location.pathname === "/movie-watchlist/watchlist" || window.location.pathname === "/movie-watchlist/watchlist.html") {
+    if ( getPageName() === "watchlist") {
         const watchlist = JSON.parse(localStorage.getItem("watchlist"))
         if (watchlist.length === 0) {
             moviesContainer.innerHTML = `
@@ -42,8 +42,7 @@ function renderMovies() {
             watchlist.forEach(imdbID => fetchMovieDetails(imdbID).then(renderMovie))
         }
 
-    } else if (window.location.pathname === "/movie-watchlist/" || window.location.pathname === "/movie-watchlist/index.html") {
-        console.log("Test")
+    } else if ( getPageName() === "index" ) {
         if (searchResults === null) {
             moviesContainer.innerHTML = `
                 <div class="movies-placeholder">
@@ -173,11 +172,20 @@ function changePage(increment) {
     fetchMovies(searchTerm, pageNumber);
 }
 
+function getPageName() {
+    if ( window.location.pathname === "/movie-watchlist/watchlist" || window.location.pathname === "/movie-watchlist/watchlist.html") {
+        return "watchlist"
+    } else if (window.location.pathname === "/movie-watchlist/" || window.location.pathname === "/movie-watchlist/index.html") {
+        return "index"
+    }
+
+} 
+
 
 window.addEventListener("load", () => {
     localStorage.getItem("watchlist") || localStorage.setItem("watchlist", JSON.stringify([]))
 
-    if (window.location.pathname.includes("index.html")) {
+    if (getPageName() === "index") {
         searchBtn.addEventListener("click", async (e) => {
             e.preventDefault()
             searchTerm = searchInput.value.trim()
