@@ -19,10 +19,10 @@ function fetchMovies(searchTerm, pageNumber) {
         })
 }
 
-// function fetchMovieDetails(imdbID) {
-//     return fetch(omdbApiUrl + "i=" + imdbID)
-//         .then(response => response.json())
-// }
+function fetchMovieDetails(imdbID) {
+    return fetch(omdbApiUrl + "i=" + imdbID)
+        .then(response => response.json())
+}
 
 
 function renderMovies() {
@@ -62,117 +62,115 @@ function renderMovies() {
             searchResults.forEach(imdbID => fetchMovieDetails(imdbID).then(renderMovie))
         } 
     }
-
 }
 
 
+function renderMovie(movie) {
+    const movieContainer = document.createElement("div")
+    movieContainer.classList.add("movie-container")
+    movieContainer.id = movie["imdbID"]
+    movieContainer.innerHTML = `
+        <div class="movie-poster-container">
+            <img class="movie-poster" 
+                src="${movie["Poster"] !== "N/A" ? movie["Poster"] : "images/no-poster.jpg"}"
+                alt="${movie["Poster"] !== "N/A" ? 
+                    `Movie poster for movie${movie["Title"]}` : "Movie poster not available"}"
+            />
+        </div>
+        <div class="movie-info-container">
+            <div class="movie-stats-top-row">
+                <h2 class="movie-title movie-detail">${movie["Title"]}</h2>
+                <p class="movie-rating movie-detail">⭐ ${movie["imdbRating"]}</p>
+            </div>
+            <div class="movie-stats-bottom-row">
+                <p class="movie-runtime movie-detail">${movie["Runtime"]}</p>
+                <p class="movie-category movie-detail">${movie["Genre"]}</p>
+            </div>
+            <p class="movie-plot">${movie["Plot"]}</p>
+        </div>
+        <hr class="movie-divider" />
+    `
+    moviesContainer.appendChild(movieContainer)
+    renderMovieActionButton(movie["imdbID"])
+}
 
-// function renderMovie(movie) {
-//     const movieContainer = document.createElement("div")
-//     movieContainer.classList.add("movie-container")
-//     movieContainer.id = movie["imdbID"]
-//     movieContainer.innerHTML = `
-//         <div class="movie-poster-container">
-//             <img class="movie-poster" 
-//                 src="${movie["Poster"] !== "N/A" ? movie["Poster"] : "images/no-poster.jpg"}"
-//                 alt="${movie["Poster"] !== "N/A" ? 
-//                     `Movie poster for movie${movie["Title"]}` : "Movie poster not available"}"
-//             />
-//         </div>
-//         <div class="movie-info-container">
-//             <div class="movie-stats-top-row">
-//                 <h2 class="movie-title movie-detail">${movie["Title"]}</h2>
-//                 <p class="movie-rating movie-detail">⭐ ${movie["imdbRating"]}</p>
-//             </div>
-//             <div class="movie-stats-bottom-row">
-//                 <p class="movie-runtime movie-detail">${movie["Runtime"]}</p>
-//                 <p class="movie-category movie-detail">${movie["Genre"]}</p>
-//             </div>
-//             <p class="movie-plot">${movie["Plot"]}</p>
-//         </div>
-//         <hr class="movie-divider" />
-//     `
-//     moviesContainer.appendChild(movieContainer)
-//     renderMovieActionButton(movie["imdbID"])
-// }
+function renderMovieActionButton(imdbID) {
 
-// function renderMovieActionButton(imdbID) {
+    const actionButton = document.createElement("button")
+    actionButton.type ="button"
+    actionButton.classList.add("movie-action-btn")
+    actionButton.setAttribute("imdbID", imdbID)
 
-//     const actionButton = document.createElement("button")
-//     actionButton.type ="button"
-//     actionButton.classList.add("movie-action-btn")
-//     actionButton.setAttribute("imdbID", imdbID)
+    if (document.location.pathname.includes("index.html")) {
 
-//     if (document.location.pathname.includes("index.html")) {
-
-//         const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]")
-//         if (watchlist.includes(imdbID)) {
-//             actionButton.classList.add("movie-action-btn-disabled")
-//             actionButton.innerHTML = `
-//                 ✔️ Added! 
-//             `
-//         } else { 
-//             actionButton.textContent = `
-//                 ➕ Watchlist
-//             `
-//             actionButton.addEventListener("click", addToWatchlist)
-//         }
+        const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]")
+        if (watchlist.includes(imdbID)) {
+            actionButton.classList.add("movie-action-btn-disabled")
+            actionButton.innerHTML = `
+                ✔️ Added! 
+            `
+        } else { 
+            actionButton.textContent = `
+                ➕ Watchlist
+            `
+            actionButton.addEventListener("click", addToWatchlist)
+        }
 
 
-//     } else if (document.location.pathname.includes("watchlist.html")) {
-//         actionButton.innerHTML = `
-//             ➖ Remove
-//         `
-//         actionButton.addEventListener("click", removeFromWatchList)
-//     }
+    } else if (document.location.pathname.includes("watchlist.html")) {
+        actionButton.innerHTML = `
+            ➖ Remove
+        `
+        actionButton.addEventListener("click", removeFromWatchList)
+    }
 
-//     document.getElementById(imdbID)
-//         .querySelector(".movie-stats-bottom-row")
-//         .appendChild(actionButton)
-// }
+    document.getElementById(imdbID)
+        .querySelector(".movie-stats-bottom-row")
+        .appendChild(actionButton)
+}
 
-// function addToWatchlist(e) {
-//     const imdbID = e.currentTarget.getAttribute("imdbID")
-//     const watchlist = JSON.parse(localStorage.getItem("watchlist"))
+function addToWatchlist(e) {
+    const imdbID = e.currentTarget.getAttribute("imdbID")
+    const watchlist = JSON.parse(localStorage.getItem("watchlist"))
 
-//     if (!watchlist.includes(imdbID)) {
-//         watchlist.push(imdbID)
-//         localStorage.setItem("watchlist", JSON.stringify(watchlist))
-//     }
+    if (!watchlist.includes(imdbID)) {
+        watchlist.push(imdbID)
+        localStorage.setItem("watchlist", JSON.stringify(watchlist))
+    }
 
-//     e.target.classList.add("movie-action-btn-disabled")
-//     e.target.innerHTML = `✔️ Added!`
+    e.target.classList.add("movie-action-btn-disabled")
+    e.target.innerHTML = `✔️ Added!`
 
-// }
+}
 
-// function removeFromWatchList(e) {
-//     const targetMovieID = e.target.getAttribute("imdbID")
-//     let watchlist = JSON.parse(localStorage.getItem("watchlist"))
+function removeFromWatchList(e) {
+    const targetMovieID = e.target.getAttribute("imdbID")
+    let watchlist = JSON.parse(localStorage.getItem("watchlist"))
 
-//     watchlist = watchlist.filter(movieID => movieID !== targetMovieID)
-//     localStorage.setItem("watchlist", JSON.stringify(watchlist))
-//     moviesContainer.innerHTML = ""
+    watchlist = watchlist.filter(movieID => movieID !== targetMovieID)
+    localStorage.setItem("watchlist", JSON.stringify(watchlist))
+    moviesContainer.innerHTML = ""
 
-//     renderMovies()
+    renderMovies()
 
-// }
+}
 
-// function handlePagination(totalResults) {
-//     if (totalResults <= 10 || totalResults === undefined) return;
+function handlePagination(totalResults) {
+    if (totalResults <= 10 || totalResults === undefined) return;
 
-//     paginationContainer.innerHTML = `
-//         <button id="back-btn" class="pagination-btn" ${pageNumber === 1 ? "disabled" : ""}>&lt; Back</button>
-//         <button id="next-btn" class="pagination-btn" ${pageNumber * 10 > totalResults ? "disabled" : ""}>Next &gt;</button>
-//     `;
-//     document.getElementById("back-btn")?.addEventListener("click", () => changePage(-1));
-//     document.getElementById("next-btn")?.addEventListener("click", () => changePage(1));
-// }
+    paginationContainer.innerHTML = `
+        <button id="back-btn" class="pagination-btn" ${pageNumber === 1 ? "disabled" : ""}>&lt; Back</button>
+        <button id="next-btn" class="pagination-btn" ${pageNumber * 10 > totalResults ? "disabled" : ""}>Next &gt;</button>
+    `;
+    document.getElementById("back-btn")?.addEventListener("click", () => changePage(-1));
+    document.getElementById("next-btn")?.addEventListener("click", () => changePage(1));
+}
 
-// function changePage(increment) {
-//     pageNumber += increment;
-//     moviesContainer.innerHTML = "";
-//     fetchMovies(searchTerm, pageNumber);
-// }
+function changePage(increment) {
+    pageNumber += increment;
+    moviesContainer.innerHTML = "";
+    fetchMovies(searchTerm, pageNumber);
+}
 
 
 window.addEventListener("load", () => {
@@ -186,4 +184,6 @@ window.addEventListener("load", () => {
             fetchMovies(searchTerm, pageNumber)
         })
     }
+
+    renderMovies()
 })
