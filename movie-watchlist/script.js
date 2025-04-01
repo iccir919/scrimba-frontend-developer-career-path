@@ -4,30 +4,66 @@ let searchTerm = ""
 let searchResults = null
 const searchInput = document.getElementById("search-input")
 const searchBtn = document.getElementById("search-btn")
+const paginationContainer = document.getElementById("pagination-container")
 const moviesContainer = document.getElementById("movies-container")
 const omdbApiUrl = "https://www.omdbapi.com/?apikey=3868c4dd&"
 
-function getMovieSearchResults(searchTerm, pageNumber) {
+function fetchMovies(searchTerm, pageNumber) {
     moviesContainer.innerHTML = ""
     fetch(omdbApiUrl + "s=" + encodeURIComponent(searchTerm) + "&page=" + pageNumber)
         .then(response => response.json())
         .then(result => {
-            if (result["Search"]) {
-                searchResults = result["Search"].map(movie => movie["imdbID"])
-                handlePagination(result.totalResults)
-            } else {
-                searchResults = "Error"
-            }
-            renderMoviesContainer()
+            searchResults = result["Search"] ? result["Search"].map(movie => movie["imdbID"]) : "Error"
+
+            renderMovies()
+            handlePagination(result.totalResults)
         })
 }
 
-function getMovieDetails(imdbID) {
-    fetch(omdbApiUrl + "i=" + imdbID)
+function fetchMovieDetails(imdbID) {
+    return fetch(omdbApiUrl + "i=" + imdbID)
         .then(response => response.json())
-        .then(movie => {
-            renderMovie(movie)
-        })
+}
+
+
+function renderMovies() {
+    if ( window.location.pathname.includes("watchlist.html") ) {
+        const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]")
+        if (watchlist.length === 0) {
+            moviesContainer.innerHTML = `
+                <div class="movies-placeholder">
+                    <h2>Your watchlist is looking a little empty...</h2>
+                    <p>
+                        <img src="images/add-icon.png" alt="Add icon" />
+                        <a href="index.html">Let’s add some movies!</a>
+                    </p>
+                <div>
+            `
+        } else {
+            watchlist.forEach(imdbID => fetchMovieDetails(imdbID).then(renderMovie))
+        }
+
+    } else if (window.location.pathname.includes("index.html")) {
+        if (searchResults === null) {
+            moviesContainer.innerHTML = `
+                <div class="movies-placeholder">
+                    <img class="placeholder-img" src="images/film-icon.png" alt="film-reel-icon" />
+                    <h2 class="placeholder-message">Start exploring</h2>
+                <div>
+            `
+        } else if (searchResults === "Error") {
+            moviesContainer.innerHTML = `
+                <div class="movies-placeholder">
+                    <p class="placeholder-message">
+                        Unable to find what you’re looking for. Please try another search.
+                    </>
+                <div>
+            `
+        } else if (searchResults.length) {
+            searchResults.forEach(imdbID => fetchMovieDetails(imdbID).then(renderMovie))
+        } 
+    }
+
 }
 
 
@@ -38,18 +74,11 @@ function renderMovie(movie) {
     movieContainer.id = movie["imdbID"]
     movieContainer.innerHTML = `
         <div class="movie-poster-container">
-            ${movie["Poster"] === "N/A" ? 
-                `<img 
-                    class="movie-poster"
-                    src="images/no-poster.jpg" 
-                    alt="Movie poster not available" 
-                />` :
-                `<img 
-                    class="movie-poster"
-                    src="${movie["Poster"]}" 
-                    alt="Movie poster for ${movie["Title"]}" 
-                />`
-            }
+            <img class="movie-poster" 
+                src="${movie["Poster"] !== "N/A" ? movie["Poster"] : "images/no-poster.jpg"}"
+                alt="${movie["Poster"] !== "N/A" ? 
+                    `Movie poster for movie${movie["Title"]}` : "Movie poster not available"}"
+            />
         </div>
         <div class="movie-info-container">
             <div class="movie-stats-top-row">
@@ -71,33 +100,31 @@ function renderMovie(movie) {
 function renderMovieActionButton(imdbID) {
 
     const actionButton = document.createElement("button")
+    actionButton.type ="button"
     actionButton.classList.add("movie-action-btn")
     actionButton.setAttribute("imdbID", imdbID)
 
     if (document.location.pathname.includes("index.html")) {
 
-        const watchlist = JSON.parse(localStorage.getItem("watchlist"))
+        const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]")
         if (watchlist.includes(imdbID)) {
-            actionButton.onclick = removeFromWatchList
+            actionButton.classList.add("movie-action-btn-disabled")
             actionButton.innerHTML = `
-                <img src="images/remove-icon.png" alt="Remove icon" />
-                Remove
+                ✔️ Added! 
             `
-        } else {
-            actionButton.onclick = addToWatchlist
-            actionButton.innerHTML = `
-                <img src="images/add-icon.png" alt="Add icon" />
-                Watchlist
+        } else { 
+            actionButton.textContent = `
+                ➕ Watchlist
             `
+            actionButton.addEventListener("click", addToWatchlist)
         }
 
 
     } else if (document.location.pathname.includes("watchlist.html")) {
-        actionButton.onclick = removeFromWatchList
         actionButton.innerHTML = `
-            <img src="images/remove-icon.png" alt="Remove icon" />
-            Remove
+            ➖ Remove
         `
+        actionButton.addEventListener("click", removeFromWatchList)
     }
 
     document.getElementById(imdbID)
@@ -106,14 +133,16 @@ function renderMovieActionButton(imdbID) {
 }
 
 function addToWatchlist(e) {
-    const targetMovieID = e.target.getAttribute("imdbID")
-    const watchlist = JSON.parse(localStorage.getItem("watchlist")) || []
+    const imdbID = e.currentTarget.getAttribute("imdbID")
+    const watchlist = JSON.parse(localStorage.getItem("watchlist"))
 
-    watchlist.push(targetMovieID)
-    localStorage.setItem("watchlist", JSON.stringify(watchlist))
-    
-    moviesContainer.innerHTML = ""
-    searchResults.forEach(imdbID => getMovieDetails(imdbID))
+    if (!watchlist.includes(imdbID)) {
+        watchlist.push(imdbID)
+        localStorage.setItem("watchlist", JSON.stringify(watchlist))
+    }
+
+    e.target.classList.add("movie-action-btn-disabled")
+    e.target.innerHTML = `✔️ Added!`
 
 }
 
@@ -125,13 +154,30 @@ function removeFromWatchList(e) {
     localStorage.setItem("watchlist", JSON.stringify(watchlist))
     moviesContainer.innerHTML = ""
 
-    renderMoviesContainer()
+    renderMovies()
 
 }
 
 function handlePagination(totalResults) {
+    if (totalResults <= 10) return;
 
-    if (totalResults < 10) return 
+    paginationContainer.innerHTML = `
+        <button id="back-btn" class="pagination-btn" ${pageNumber === 1 ? "disabled" : ""}>&lt; Back</button>
+        <button id="next-btn" class="pagination-btn" ${pageNumber * 10 > totalResults ? "disabled" : ""}>Next &gt;</button>
+    `;
+    document.getElementById("back-btn")?.addEventListener("click", () => changePage(-1));
+    document.getElementById("next-btn")?.addEventListener("click", () => changePage(1));
+}
+
+function changePage(increment) {
+    pageNumber += increment;
+    moviesContainer.innerHTML = "";
+    fetchMovies(searchTerm, pageNumber);
+}
+
+function oldHandlePagination(totalResults) {
+    console.log(totalResults)
+    if (totalResults < 10 || totalResults === undefined) return 
 
     document.getElementById("pagination-container").innerHTML = `
         <button
@@ -158,12 +204,13 @@ function handlePagination(totalResults) {
     })
 }
 
-function handlePaginationBtnClick(e) {
+function oldHandlePaginationBtnClick(e) {
+
     const nextPageIncrement = Number(e.target.dataset.nextPageIncrement)
     pageNumber += nextPageIncrement
 
     moviesContainer.innerHTML = ""
-    getMovieSearchResults(searchTerm, pageNumber)
+    fetchMovies(searchTerm, pageNumber)
 }
 
 window.addEventListener("load", function() {
@@ -179,53 +226,15 @@ window.addEventListener("load", function() {
             searchTerm = searchInput.value
             pageNumber = 1;
         
-            getMovieSearchResults(searchTerm, pageNumber)
+            fetchMovies(searchTerm, pageNumber)
         
         })
     }
 
-    renderMoviesContainer()
+    renderMovies()
 })
 
-function renderMoviesContainer() {
-    if ( window.location.pathname.includes("watchlist.html") ) {
-        const watchlist = JSON.parse(localStorage.getItem("watchlist"))
-        if (watchlist === null || watchlist.length === 0) {
-            moviesContainer.innerHTML = `
-                <div class="movies-placeholder">
-                    <h2>Your watchlist is looking a little empty...</h2>
-                    <p>
-                        <img src="images/add-icon.png" alt="Add icon" />
-                        <a href="index.html">Let’s add some movies!</a>
-                    </p>
-                <div>
-            `
-        } else {
-            watchlist.forEach(imdbID => getMovieDetails(imdbID))
-        }
 
-    } else if (window.location.pathname.includes("index.html")) {
-        if (searchResults === null) {
-            moviesContainer.innerHTML = `
-                <div class="movies-placeholder">
-                    <img class="placeholder-img" src="images/film-icon.png" alt="film-reel-icon" />
-                    <h2 class="placeholder-message">Start exploring</h2>
-                <div>
-            `
-        } else if (searchResults === "Error") {
-            moviesContainer.innerHTML = `
-                <div class="movies-placeholder">
-                    <p class="placeholder-message">
-                        Unable to find what you’re looking for. Please try another search.
-                    </>
-                <div>
-            `
-        } else if (searchResults.length) {
-            searchResults.forEach(imdbID => getMovieDetails(imdbID))
-        } 
-    }
-
-}
 
 const findingNemo = {
     "Title": "Finding Nemo",
