@@ -9,9 +9,12 @@
     "chrome_url_overrides": {
         "newtab": "index.html"
     },
+    "host_permissions": [
+        "https://neil-scrimba-frontend-career-path.netlify.app/dashboard/*"
+    ],
     "content_scripts": [
         {
-            "matches": ["https://neil-scrimba-frontend-career-path.netlify.app/dashboard/connect-fitbit.html"],
+            "matches": ["https://neil-scrimba-frontend-career-path.netlify.app/dashboard/*"],
             "js": ["connect-fitbit.js"]
         }
     ]

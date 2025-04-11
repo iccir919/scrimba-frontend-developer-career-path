@@ -46,15 +46,14 @@ function getLocalWeather() {
 
 function getFitbitInfo() {
     const fitbitAccessTokenLocalStorage = localStorage.getItem("fitbitAccessToken")
-    chrome.storage.local.get(["fitbitAccessToken"]).then((result) => {
+    console.log("Fitbit Access Token Local", fitbitAccessTokenLocalStorage)
+
+    chrome.storage.sync.get(["fitbitAccessToken"]).then((result) => {
         console.log("Value is " + result.key);
     });
 
-    console.log("Fitbit Access Token Local", fitbitAccessTokenLocalStorage)
 
-    if (fitbitAccessToken === null) return
-
-    console.log(fitbitAccessToken)
+    if (fitbitAccessTokenLocalStorage === null) return
 }
 
 
