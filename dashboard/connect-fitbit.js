@@ -3,7 +3,10 @@ const fitbitAccessToken = urlParams.get('access_token')
 const statusText = document.getElementById("connect-fitbit-status")
 
 if (fitbitAccessToken) {
-    localStorage.setItem('fitbitAccessToken', fitbitAccessToken)
+    chrome.storage.local.set({ "fitbitAccessToken": fitbitAccessToken }).then(() => {
+      console.log("Fitbit access token is set");
+    });
+    localStorage.setItem("fitbitAccessToken", fitbitAccessToken)
     statusText.innerHTML = "<h2>Fitbit connected!</h2>"
 
 } else {
