@@ -15,7 +15,7 @@ function getFitbitAuthorizeUri() {
         client_id: "23QDPZ",
         response_type: "token",
         scope: "activity heartrate profile sleep",
-        redirect_uri: "https://neil-scrimba-frontend-career-path.netlify.app/dashboard/connect-fitbit.html",
+        redirect_uri: "chrome://newtab",
         expires_in: 31536000
     })
     fitbitAuthorizeUri.search = params
