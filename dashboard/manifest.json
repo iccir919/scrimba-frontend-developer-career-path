@@ -9,11 +9,7 @@
     "chrome_url_overrides": {
         "newtab": "index.html"
     },
-    "permissions": ["storage"],
-    "content_scripts": [
-        {
-            "matches": ["https://neil-scrimba-frontend-career-path.netlify.app/dashboard/*"],
-            "js": ["connect-fitbit.js"]
-        }
+    "permissions": [
+        "history"
     ]
 }
