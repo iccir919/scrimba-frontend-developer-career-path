@@ -12,7 +12,7 @@ body {
 }
 
 main {
-    padding: 1em;
+    padding: 3em;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -61,6 +61,27 @@ main {
     text-align: center;
 }
 
+#history {
+    width: 25%;
+}
+
+#history table {
+    width: 100%;
+}
+
+td {
+    padding: 0.25em;
+}
+
+caption {
+    font-size: 1.15rem;
+    margin-bottom: 0.5em;
+}
+
+.visit-count {
+    text-align: center;
+}
+
 #github {
-    width: 10%;
+    width: 30%;
 }
