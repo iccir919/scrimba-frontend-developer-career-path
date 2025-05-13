@@ -31,6 +31,7 @@ function getLocalWeather() {
                 return res.json()
             })
             .then(data => {
+                console.log(data)
                 const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
                 document.getElementById("weather").innerHTML = `
                     <div class="row">
