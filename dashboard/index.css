@@ -1,95 +1,27 @@
-* {
-    box-sizing: border-box;
-}    
+html, body {
+    margin: 0;
+}
 
 body {
-    margin: 0;
-    color: white;
-    background: no-repeat center center fixed; 
+    background: no-repeat center center fixed;
     background-size: cover;
+    color: white;
     font-family: Arial, Helvetica, sans-serif;
     text-shadow: 0px 0px 20px #242424;
 }
 
 main {
-    padding: 3em;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.row {
+.mid-row {
     display: flex;
-    align-items: center;
-}
-
-#top-row {
-    justify-content: space-between;
-}
-
-#main-title {
-    font-size: 2.25rem;
-}
-
-#background-photo-author {
-    font-size: 1rem;
-}
-
-.weather-temp {
-    font-size: 1.75rem;
-}
-
-.weather-city {
-    margin-top: 0;
-    font-size: 1.25rem;
-    text-align: right;
-}
-
-#middle-row {
     justify-content: center;
-    font-size: 2.5rem;
 }
 
-.bottom-row {
-    justify-content: space-between;
-}
-
-#connect-btn {
-    font-size: 1.5rem;
-    text-decoration: none;
-    color: white;
-}
-
-#author {
-    font-size: 1rem;
-}
-
-#connect-btn {
-    text-align: center;
-}
-
-#history {
-    width: 25%;
-}
-
-#history table {
-    width: 100%;
-}
-
-td {
-    padding: 0.25em;
-}
-
-caption {
-    font-size: 1.15rem;
-    margin-bottom: 0.5em;
-}
-
-.visit-count {
-    text-align: center;
-}
-
-#github {
-    width: 30%;
+#time {
+    font-size: 5rem;
 }
