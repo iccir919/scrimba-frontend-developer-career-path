@@ -24,11 +24,40 @@ function getPositionProperties() {
         .then(res => res.json())
         .then(data => {
             const { city, state } = data.properties.relativeLocation.properties
-            document.getElementById("weather-container").innerHTML += `
-                <h3>${city}, ${state}</h3>
-            `
-            console.log(data)      
+            document.getElementById("weather-location").innerText = `${city}, ${state}`
+            const positionWeatherForecastUrl = data.properties.forecast
+            get7DayWeatherForecast(positionWeatherForecastUrl)      
         })
+}
+
+function get7DayWeatherForecast(forecastUrl) {
+    fetch(forecastUrl)
+        .then(res => res.json())
+        .then(data => {
+            render7DayWeatherForecast(data.properties)
+        })
+}
+
+function render7DayWeatherForecast(forecast) {
+    const forecastGenerationDatetime = new Date(forecast.generatedAt)
+    document.getElementById("weather-last-updated").innerText = `
+        Forecast generated: ${forecastGenerationDatetime.toLocaleDateString()} at ${forecastGenerationDatetime.toLocaleTimeString()}
+    `
+
+    const [current, ...rest] = forecast.periods
+    const displayedForecast = [current, ...rest.filter(period => period.isDaytime)]
+
+    document.getElementById("forecast-container").innerHTML = displayedForecast.map(period => `
+            <div class="weather-period-container">
+                <div class="weather-period-primary-row">
+                    <img class="weather-period-icon" src="${period.icon}" />
+                    <h4>${period.name}</h4>
+                    <p class="weather-period-temperature-text">${period.temperature}</p>
+                </div>
+            </div>
+        `).join('')
+
+
 }
 
 getRandomBackground()

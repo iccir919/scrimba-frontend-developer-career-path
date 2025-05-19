@@ -23,6 +23,31 @@ main {
     justify-content: space-between;
 }
 
+#weather-title-container {
+    width: 500px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#weather-last-updated {
+    text-align: center;
+}
+
+.weather-period-primary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.weather-period-icon {
+    width: 4vw;
+}
+
+.temperature-text {
+    font-size: 2rem;
+}
+
 .mid-row {
     display: flex;
     justify-content: center;
