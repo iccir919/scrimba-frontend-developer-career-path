@@ -14,7 +14,7 @@ function getRandomBackground() {
 
 function getCurrentTime() {
     const date = new Date()
-    document.getElementById("time").textContent = date.toLocaleTimeString("en-us")
+    document.getElementById("time-text").textContent = date.toLocaleTimeString("en-us")
     setInterval(getCurrentTime, 1000)
 }
 
@@ -49,10 +49,10 @@ function render7DayWeatherForecast(forecast) {
 
     document.getElementById("forecast-container").innerHTML = displayedForecast.map(period => `
             <div class="weather-period-container">
-                <div class="weather-period-primary-row">
+                <div class="space-between-row">
                     <img class="weather-period-icon" src="${period.icon}" />
-                    <h4>${period.name}</h4>
-                    <p class="weather-period-temperature-text">${period.temperature}</p>
+                    <h4 class="weather-period-name">${period.name}</h4>
+                    <p class="weathter-period-temperature-text">${period.temperature}</p>
                 </div>
             </div>
         `).join('')

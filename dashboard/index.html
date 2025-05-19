@@ -5,25 +5,28 @@
         <title>Personal Dashboard</title>
     </head>
     <body>
-        <main>  
-            <div class="top-row">
-                <h1>Personal Dashboard</h1>
-                <div id="weather-container">
-                    <div id="weather-title-container">
+        <main>
+            <div class="layout-col">
+                <div>
+                    <h1 class="app-title">Personal Dashboard</h1>
+                </div>
+            </div>  
+            <div class="layout-col mid-col">
+                <div class="time-container">
+                    <h2 id="time-text"></h2>
+                </div>
+            </div>
+            <div class="layout-col">
+                <div class="weather-container">
+                    <div class="weather-heading-row space-between-row">
                         <h2 id="weather-title">Weather</h2>
                         <h3 id="weather-location"></h3>
                     </div>
                     <div id="forecast-container">
-
+    
                     </div>
                     <p id="weather-last-updated"></p>
                 </div>
-            </div> 
-            <div class="mid-row">
-                <h2 id="time"></h2>
-            </div>
-            <div>
-
             </div>
         </main>
         <script src="index.js"></script>
