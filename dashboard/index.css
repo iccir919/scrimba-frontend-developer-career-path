@@ -33,6 +33,10 @@ main {
     font-size: 2.75rem;
 }
 
+.left-col {
+    justify-content: space-between;
+}
+
 .mid-col {
     justify-content: center;
 }
@@ -74,4 +78,19 @@ main {
     text-align: center;
 }
 
+.frequent-websites-section-heading {
+    font-family: 1rem;
+}
 
+.frequent-website-list-item {
+    margin: 1.25em 0;
+    font-size: 1rem;
+}
+
+.frequent-website-link {
+    color: white;
+}
+
+.frequent-website-link:hover {
+    color: blue;
+}

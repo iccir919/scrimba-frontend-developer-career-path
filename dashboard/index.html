@@ -6,18 +6,24 @@
     </head>
     <body>
         <main>
-            <div class="layout-col">
-                <div>
+            <div class="layout-col left-col">
+                <section>
                     <h1 class="app-title">Personal Dashboard</h1>
-                </div>
+                </section>
+                <section>
+                    <h2 class="frequent-websites-section-heading">Top 10 Recently Frequently Visited Websites</h2>
+                    <ol id="frequent-websites-container">
+
+                    </ol>
+                </section>
             </div>  
             <div class="layout-col mid-col">
-                <div class="time-container">
+                <section class="time-container">
                     <h2 id="time-text"></h2>
-                </div>
+                </section>
             </div>
             <div class="layout-col">
-                <div class="weather-container">
+                <section class="weather-container">
                     <div class="weather-heading-row space-between-row">
                         <h2 id="weather-title">Weather</h2>
                         <h3 id="weather-location"></h3>
@@ -26,7 +32,7 @@
     
                     </div>
                     <p id="weather-last-updated"></p>
-                </div>
+                </section>
             </div>
         </main>
         <script src="index.js"></script>

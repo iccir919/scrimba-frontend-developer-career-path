@@ -19,7 +19,7 @@ function getCurrentTime() {
 }
 
 
-function getPositionProperties() {
+function getCurrentPositionProperties() {
     fetch(`https://api.weather.gov/points/${curentPositionLatitude},${currentPositionLongitude}`)
         .then(res => res.json())
         .then(data => {
@@ -60,6 +60,52 @@ function render7DayWeatherForecast(forecast) {
 
 }
 
+function getBrowsingHistory() {
+    const today = new Date()
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(today.getDate() - 7)
+
+    chrome.history.search({ text: "",  maxResults: 500, startTime: sevenDaysAgo.getTime() }, getMostVistedSites)
+}
+
+function getMostVistedSites(history) {
+    const websiteVisitCounts = {}
+
+    history.forEach(siteVisit => {
+        console.log(siteVisit)
+        const website = new URL(siteVisit.url).hostname
+
+        websiteVisitCounts[website] = (websiteVisitCounts[website] || 0) + 1
+    })
+
+    const websiteVisitsSorted = Object.entries(websiteVisitCounts)
+        .sort(([, countA], [, countB] ) => countB - countA)
+
+    const top10VisitedWebsites = websiteVisitsSorted.slice(0, 10);
+
+    renderMostVisitedSites(top10VisitedWebsites)
+}
+
+function renderMostVisitedSites(top10VisitedWebsites) {
+
+    const frequentWebsitesList = document.getElementById("frequent-websites-container")
+    frequentWebsitesList.innerHTML = ""
+
+    for (let [websiteURL, count] of top10VisitedWebsites) {
+        const listItem = document.createElement("li")
+        listItem.className = "frequent-website-list-item"
+        const link = document.createElement("a")
+        link.href = `https:${websiteURL}`
+        link.target = "_blank"
+        link.className = "frequent-website-link"
+        link.textContent = websiteURL
+        listItem.appendChild(link)
+        frequentWebsitesList.appendChild(listItem)
+    }
+
+}
+
+getBrowsingHistory()
 getRandomBackground()
 getCurrentTime()
-getPositionProperties()
+getCurrentPositionProperties()
