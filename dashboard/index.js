@@ -1,16 +1,47 @@
-const curentPositionLatitude = 37.81262421636472
-const currentPositionLongitude = -122.24471522191392
+// Background image
 
 function getRandomBackground() {
-    fetch("https://picsum.photos/1920/1080")
-        .then(res => {
-            document.body.style.backgroundImage = `url(${res.url})`
-        })
-        .catch(err => {
-            document.body.style.backgroundImage = 
-                "linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%)"
+      document.body.style.backgroundImage = generateRandomLinearGradient();
+}
+
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+function generateRandomLinearGradient() {
+    const color1 = getRandomColor();
+    const color2 = getRandomColor();
+    const gradient = `linear-gradient(to right, ${color1}, ${color2})`;
+    return gradient;
+}
+
+// Zip code form
+
+document.getElementById("zip-code-form").addEventListener("submit", handleZipCodeInput)
+
+function handleZipCodeInput(e) {
+    e.preventDefault()
+    
+    const zipCodeInput = document.getElementById("zipcode-input")
+    const zipCode = zipCodeInput.value
+    zipCode.value = ""
+    getZipCodeProperties(zipCode)
+}
+
+function getZipCodeProperties(zipCode) {
+    fetch(`https://api.zippopotam.us/us/${zipCode}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
         })
 }
+
+// Time section
 
 function getCurrentTime() {
     const date = new Date()
@@ -18,15 +49,13 @@ function getCurrentTime() {
     setInterval(getCurrentTime, 1000)
 }
 
+// Weather section
 
 function getCurrentPositionProperties() {
     fetch(`https://api.weather.gov/points/${curentPositionLatitude},${currentPositionLongitude}`)
         .then(res => res.json())
         .then(data => {
-            const { city, state } = data.properties.relativeLocation.properties
-            document.getElementById("weather-location").innerText = `${city}, ${state}`
-            const positionWeatherForecastUrl = data.properties.forecast
-            get7DayWeatherForecast(positionWeatherForecastUrl)      
+            get7DayWeatherForecast(data.properties.forecast)      
         })
 }
 
@@ -49,16 +78,14 @@ function render7DayWeatherForecast(forecast) {
 
     document.getElementById("forecast-container").innerHTML = displayedForecast.map(period => `
             <div class="weather-period-container">
-                <div class="space-between-row">
-                    <img class="weather-period-icon" src="${period.icon}" />
-                    <h4 class="weather-period-name">${period.name}</h4>
-                    <p class="weathter-period-temperature-text">${period.temperature}</p>
-                </div>
+                <img class="weather-period-icon" src="${period.icon}" />
+                <h4 class="weather-period-name">${period.name}</h4>
+                <p class="weathter-period-temperature-text">${period.temperature}</p>
             </div>
         `).join('')
-
-
 }
+
+// Most frequently visited websites
 
 function getBrowsingHistory() {
     const today = new Date()
@@ -72,7 +99,6 @@ function getMostVistedSites(history) {
     const websiteVisitCounts = {}
 
     history.forEach(siteVisit => {
-        console.log(siteVisit)
         const website = new URL(siteVisit.url).hostname
 
         websiteVisitCounts[website] = (websiteVisitCounts[website] || 0) + 1
@@ -102,10 +128,9 @@ function renderMostVisitedSites(top10VisitedWebsites) {
         listItem.appendChild(link)
         frequentWebsitesList.appendChild(listItem)
     }
-
 }
 
 getBrowsingHistory()
 getRandomBackground()
 getCurrentTime()
-getCurrentPositionProperties()
+
