@@ -45,6 +45,7 @@ function handleZipCodeInput(e) {
 
 function getZipCodeProperties(zipCode) {
     const currentLocationResultDiv = document.getElementById("current-location-result")
+    currentLocationResultDiv.innerHTML = "<p>Loading location...</p>";
 
     fetch(`https://api.zippopotam.us/us/${zipCode}`)
         .then(res => {
@@ -76,7 +77,12 @@ function getZipCodeProperties(zipCode) {
 function getCurrentTime() {
     const date = new Date()
     document.getElementById("time-text").textContent = date.toLocaleTimeString("en-us")
-    setInterval(getCurrentTime, 1000)
+    setInterval(() => {
+        const now = new Date();
+        const timeEl = document.getElementById("time-text");
+        const formattedTime = now.toLocaleTimeString("en-us");
+        if (timeEl.textContent !== formattedTime) timeEl.textContent = formattedTime;
+    }, 1000)
 }
 
 
@@ -112,7 +118,7 @@ function render7DayWeatherForecast(forecast) {
             <div class="weather-period-container">
                 <img class="weather-period-icon" src="${period.icon}" />
                 <h4 class="weather-period-name">${period.name}</h4>
-                <p class="weathter-period-temperature-text">${period.temperature}</p>
+                <p class="weather-period-temperature-text">${period.temperature}</p>
             </div>
         `).join('')
 }
@@ -153,7 +159,7 @@ function renderMostVisitedSites(top10VisitedWebsites) {
         const listItem = document.createElement("li")
         listItem.className = "frequent-website-list-item"
         const link = document.createElement("a")
-        link.href = `https:${websiteURL}`
+        link.href = `https://${websiteURL}`
         link.target = "_blank"
         link.className = "frequent-website-link"
         link.textContent = websiteURL
@@ -162,8 +168,14 @@ function renderMostVisitedSites(top10VisitedWebsites) {
     }
 }
 
-getLocationFromLocalStorage()
-getBrowsingHistory()
-getRandomBackground()
-getCurrentTime()
+function initDashboard() {
+    getLocationFromLocalStorage()
+    getBrowsingHistory()
+    getRandomBackground()
+    getCurrentTime()
+}
+
+initDashboard()
+
+
 
