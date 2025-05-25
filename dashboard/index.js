@@ -20,7 +20,17 @@ function generateRandomLinearGradient() {
     return gradient;
 }
 
+// Current location section
+
+
+function getLocationFromLocalStorage() {
+    const storedZipCode = localStorage.getItem("zipCode")
+
+    if (storedZipCode) getZipCodeProperties(storedZipCode)
+}
+
 // Zip code form
+
 
 document.getElementById("zip-code-form").addEventListener("submit", handleZipCodeInput)
 
@@ -34,10 +44,30 @@ function handleZipCodeInput(e) {
 }
 
 function getZipCodeProperties(zipCode) {
+    const currentLocationResultDiv = document.getElementById("current-location-result")
+
     fetch(`https://api.zippopotam.us/us/${zipCode}`)
-        .then(res => res.json())
+        .then(res => {
+
+            if(!res.ok) {
+                if (res.status === 404) {
+                    throw new Error(`Zip code ${zipCode} not found`)
+                } else {
+                    throw new Error(`Error: ${res.status}`)
+                }
+            }
+
+            return res.json()
+        })
         .then(data => {
-            console.log(data)
+            localStorage.setItem("zipCode", data["post code"])
+            const place = data.places[0]
+            currentLocationResultDiv.innerHTML = `<h2>${place["place name"]}, ${place["state abbreviation"]}</h2>`
+            const { longitude, latitude }  = place
+            getCurrentLocationWeatherProperties(longitude, latitude)
+        })
+        .catch(err => {
+            currentLocationResultDiv.innerHTML = `<p>${err.message}</p>`
         })
 }
 
@@ -49,10 +79,12 @@ function getCurrentTime() {
     setInterval(getCurrentTime, 1000)
 }
 
+
 // Weather section
 
-function getCurrentPositionProperties() {
-    fetch(`https://api.weather.gov/points/${curentPositionLatitude},${currentPositionLongitude}`)
+
+function getCurrentLocationWeatherProperties(longitude, latitude) {
+    fetch(`https://api.weather.gov/points/${latitude},${longitude}`)
         .then(res => res.json())
         .then(data => {
             get7DayWeatherForecast(data.properties.forecast)      
@@ -130,6 +162,7 @@ function renderMostVisitedSites(top10VisitedWebsites) {
     }
 }
 
+getLocationFromLocalStorage()
 getBrowsingHistory()
 getRandomBackground()
 getCurrentTime()

@@ -7,8 +7,6 @@ html, body {
 }
 
 body {
-    background: no-repeat center center fixed;
-    background-size: cover;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     text-shadow: 0px 0px 20px #242424;
@@ -16,12 +14,10 @@ body {
 
 main {
     height: 100vh;
-    padding: 2em;
     display: flex;
     justify-content: space-between;
     gap: 1%;
 }
-
 
 
 /* Layout */
@@ -32,15 +28,21 @@ main {
     width: 30%;
 }
 
-.left-col,
+.left-col {
+    justify-content: space-around;
+}
+
 .mid-col {
-    justify-content: space-between;
+    justify-content: space-around;
+}
+
+.right-col {
+    justify-content: end;
 }
 
 /* Title section */
 
 .app-title {
-    margin-top: 0.5em;
     font-size: 2.75rem;
 }
 
@@ -52,10 +54,6 @@ main {
 }
 
 /* Weather section */ 
-
-.weather-heading-row {
-    font-size: 1rem;
-}
 
 #forecast-container {
     display: flex;
@@ -88,11 +86,11 @@ main {
 /* Most frequent website section */ 
 
 .frequent-websites-section-heading {
-    font-family: 1rem;
+    font-size: 1.5rem;
 }
 
 .frequent-website-list-item {
-    margin: 1.25em 0;
+    margin: 0.75em 0;
     font-size: 1rem;
 }
 

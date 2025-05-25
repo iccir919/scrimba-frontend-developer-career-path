@@ -18,25 +18,21 @@
                 </section>
             </div>  
             <div class="layout-col mid-col">
-                <section class="moon-phase-container">
-                </section>
                 <section class="time-container">
                     <h2 id="time-text"></h2>
                 </section>
                 <section class="current-location-container">
-                    <h2>Location</h2>
+                    <h2>Current Location</h2>
                     <form id="zip-code-form">
                         <label for="zipcode">ZIP Code:</label>
                         <input type="text" id="zipcode-input" name="zipcode" pattern="\d{5}" maxlength="5" inputmode="numeric" required>
                         <button type="submit">Submit</button>
-                      </form>
+                    </form>
+                    <div id="current-location-result"></div>
                 </section>
             </div>
-            <div class="layout-col">
+            <div class="layout-col right-col">
                 <section class="weather-container">
-                    <div class="weather-heading-row">
-                        <h2 id="weather-title">Weather</h2>
-                    </div>
                     <div id="forecast-container">
     
                     </div>
