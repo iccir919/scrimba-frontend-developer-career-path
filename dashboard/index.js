@@ -65,7 +65,8 @@ function getZipCodeProperties(zipCode) {
             const place = data.places[0]
             currentLocationResultDiv.innerHTML = `<h2>${place["place name"]}, ${place["state abbreviation"]}</h2>`
             const { longitude, latitude }  = place
-            getCurrentLocationWeatherProperties(longitude, latitude)
+            getCurrentLocationWeatherProperties(latitude, longitude)
+            getMoonIllumination(latitude, longitude)
         })
         .catch(err => {
             currentLocationResultDiv.innerHTML = `<p>${err.message}</p>`
@@ -89,7 +90,7 @@ function getCurrentTime() {
 // Weather section
 
 
-function getCurrentLocationWeatherProperties(longitude, latitude) {
+function getCurrentLocationWeatherProperties(latitude, longitude) {
     fetch(`https://api.weather.gov/points/${latitude},${longitude}`)
         .then(res => res.json())
         .then(data => {
@@ -167,6 +168,39 @@ function renderMostVisitedSites(top10VisitedWebsites) {
         frequentWebsitesList.appendChild(listItem)
     }
 }
+
+// Moon phase
+
+function getMoonIllumination(latitude, longitude) {
+    const today = new Date()
+    const year = today.getFullYear()
+    const month = today.getMonth() + 1
+    const day = today.getDate()
+    const formattedDate = `${year}-${month}-${day}`
+
+    const moonIlluminationUrl = `https://aa.usno.navy.mil/api/rstt/oneday?date=2025-5-28&coords=${latitude},${longitude}`
+
+
+    fetch(moonIlluminationUrl)
+        .then(res => res.json())
+        .then(json => {
+            console.log(json)
+            // const fracillum = parseFloat(json?.properties?.data?.fracillum)
+            const fracillum = 50
+
+
+            if( !isNaN(fracillum) ) {
+                // const moonEl = document.getElementById("moon")
+                // moonEl.style.setProperty("--illumination", fracillum)
+            }
+        })
+}
+
+function updateMoonIllumination() {
+
+}
+
+// Initialization
 
 function initDashboard() {
     getLocationFromLocalStorage()

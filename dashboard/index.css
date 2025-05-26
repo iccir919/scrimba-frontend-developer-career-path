@@ -37,7 +37,7 @@ main {
 }
 
 .right-col {
-    justify-content: end;
+    justify-content: center;
 }
 
 /* Title section */
@@ -45,6 +45,25 @@ main {
 .app-title {
     font-size: 2.75rem;
 }
+
+/* Moon section */ 
+
+.moon-container {
+    background: black;
+    padding: 20px;
+    display: inline-block;
+}
+
+.moon {
+    width: 120px;
+    height: 120px;
+    background: white;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 10px #fff;
+    overflow: hidden;
+}
+  
 
 /* Time section */
 
@@ -107,6 +126,9 @@ main {
     margin-left: auto;
     margin-right: auto;
 }
+
+
+/* Responsive design */ 
 
 @media (max-width: 768px) {
     main {
