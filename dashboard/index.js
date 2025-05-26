@@ -66,7 +66,7 @@ function getZipCodeProperties(zipCode) {
             currentLocationResultDiv.innerHTML = `<h2>${place["place name"]}, ${place["state abbreviation"]}</h2>`
             const { longitude, latitude }  = place
             getCurrentLocationWeatherProperties(latitude, longitude)
-            getMoonIllumination(latitude, longitude)
+            getMoonInformation(latitude, longitude)
         })
         .catch(err => {
             currentLocationResultDiv.innerHTML = `<p>${err.message}</p>`
@@ -171,32 +171,99 @@ function renderMostVisitedSites(top10VisitedWebsites) {
 
 // Moon phase
 
-function getMoonIllumination(latitude, longitude) {
+function getMoonInformation(latitude, longitude) {
+    const illuminationSpan = document.getElementById("illumination")
+    const currentPhaseSpan = document.getElementById("current-phase")
+
     const today = new Date()
     const year = today.getFullYear()
     const month = today.getMonth() + 1
     const day = today.getDate()
     const formattedDate = `${year}-${month}-${day}`
 
-    const moonIlluminationUrl = `https://aa.usno.navy.mil/api/rstt/oneday?date=2025-5-28&coords=${latitude},${longitude}`
+    const moonIlluminationUrl = `https://aa.usno.navy.mil/api/rstt/oneday?date=${formattedDate}&coords=${latitude},${longitude}`
 
 
     fetch(moonIlluminationUrl)
-        .then(res => res.json())
-        .then(json => {
-            console.log(json)
-            // const fracillum = parseFloat(json?.properties?.data?.fracillum)
-            const fracillum = 50
-
-
-            if( !isNaN(fracillum) ) {
-                // const moonEl = document.getElementById("moon")
-                // moonEl.style.setProperty("--illumination", fracillum)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! Response status: ${res.status}`)
             }
+            return res.json()
+        })
+        .then(json => {
+            const moonData = json.properties.data
+            console.log(moonData)
+            
+            // fracillum is a percentage (0-100), so we divide by 100 to get a 0-1 fraction for calculations
+            const fracIllumInt = parseInt(moonData.fracillum)
+            const fracIllum = fracIllumInt / 100
+            const curPhase = moonData.curphase
+
+            illuminationSpan.textContent = moonData.fracillum
+            currentPhaseSpan.textContent = curPhase
+
+            updateMoonPhase(fracIllum, curPhase)
+
+        })
+        .catch(err => {
+            console.error("Error fetching moon data", err)
+            illuminationSpan.textContent = "Error loading data"
+            currentPhaseSpan.textContent = "N/A"
         })
 }
 
-function updateMoonIllumination() {
+function updateMoonPhase(illumination, curPhase) {
+    const moonShadow = document.getElementById("moon-shadow")
+    // Reset properties to ensure proper rendering for each phase
+    moonShadow.style.transform = ''
+    moonShadow.style.borderRadius = "50%"
+    moonShadow.style.left = "0"
+    moonShadow.style.width = "100%"
+    moonShadow.style.display = "block"
+
+    switch(curPhase) {
+        case "New Moon":
+            // Shadow completely covers the moon
+            moonShadow.style.transform = "translateX(0)"
+            break
+        case "Full Moon":
+            // Shadow is completely off-screen (moon is fully lit)
+            moonShadow.style.transform = "translateX(100%)"
+            break
+        case "First Quarter":
+            // Right half is lit, left half is shadowed
+            // The shadow covers the left half of the moon
+            moonShadow.style.width = "50%"
+            moonShadow.style.left = "0"
+            moonShadow.style.borderRadius = "0" // Creates a semi-circle on the right edge
+            moonShadow.style.transform = "translateX(0)"
+            break
+        case "Last Quarter":
+            moonShadow.style.width = "50%"
+            moonShadow.style.left = "50%"
+            moonShadow.style.borderRadius = "0"
+            moonShadow.style.transform = "translateX(0)"
+            break
+            case "Waxing Crescent":
+            case "Waxing Gibbous":
+                // Correct logic for Waxing: Shadow moves from right to left, uncovering light from the right.
+                // As illumination increases (0 to 1), -((1-illumination)*100) goes from -100% to 0%.
+                // Shadow starts fully off-left and moves right to reveal light.
+                moonShadow.style.transform = `translateX(${-illumination * 100}%)`
+                break;
+            case "Waning Gibbous":
+            case "Waning Crescent":
+                // Correct logic for Waning: Shadow moves from left to right, covering light from the left.
+                // As illumination decreases (1 to 0), (1-illumination)*100 goes from 0% to 100%.
+                // Shadow starts fully off-right (or centered for full moon) and moves right to cover more.
+                moonShadow.style.transform = `translateX(${illumination * 100}%)`
+                break;
+        default:
+            moonShadow.style.transform = `translateX(${illumination * 100}%)`
+            break
+
+    }
 
 }
 

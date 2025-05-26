@@ -18,13 +18,18 @@
                 </section>
             </div>  
             <div class="layout-col mid-col">
-                <section class="moon-phase-container">
-                    <div class="moon" id="moon"></div>
+                <section class="moon-section">
+                    <div class="moon-container">
+                        <div class="moon-light" id="moon-light"></div>
+                        <div class="moon-shadow" id="moon-shadow"></div>
+                    </div>
+                    <p>Moon illumination: <span id="illumination"></span></p>
+                    <p>Moon phase: <span id="current-phase"></span></p>
                 </section>
                 <section class="time-container">
                     <h2 id="time-text"></h2>
                 </section>
-                <section class="current-location-container">
+                <section class="current-location-section">
                     <h2>Current Location</h2>
                     <form id="zip-code-form">
                         <label for="zipcode">ZIP Code:</label>
@@ -35,7 +40,7 @@
                 </section>
             </div>
             <div class="layout-col right-col">
-                <section class="weather-container">
+                <section class="weather-section">
                     <div id="forecast-container">
     
                     </div>
