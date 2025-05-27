@@ -247,18 +247,18 @@ function updateMoonPhase(illumination, curPhase) {
             break
             case "Waxing Crescent":
             case "Waxing Gibbous":
-                // Correct logic for Waxing: Shadow moves from right to left, uncovering light from the right.
+                // Waxing: Shadow moves from right to left, uncovering light from the right.
                 // As illumination increases (0 to 1), -((1-illumination)*100) goes from -100% to 0%.
                 // Shadow starts fully off-left and moves right to reveal light.
                 moonShadow.style.transform = `translateX(${-illumination * 100}%)`
                 break;
             case "Waning Gibbous":
             case "Waning Crescent":
-                // Correct logic for Waning: Shadow moves from left to right, covering light from the left.
+                // Waning: Shadow moves from left to right, covering light from the left.
                 // As illumination decreases (1 to 0), (1-illumination)*100 goes from 0% to 100%.
                 // Shadow starts fully off-right (or centered for full moon) and moves right to cover more.
                 moonShadow.style.transform = `translateX(${illumination * 100}%)`
-                break;
+                break
         default:
             moonShadow.style.transform = `translateX(${illumination * 100}%)`
             break
