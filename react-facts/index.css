@@ -5,8 +5,12 @@
 body {
     padding: 20px;
     font-family: Arial, Helvetica, sans-serif;
-    background: #27292c;
-    color: white;
+    background: 
+        url("react-logo.png"),
+        #9bafd9;
+    background-repeat: no-repeat;
+    background-position: top;
+    color: #103783;
 }
 
 h1 {
@@ -15,7 +19,7 @@ h1 {
 
 .header {
     display: flex;
-    align-items: center;
+    align-items: left;
     justify-content: space-between;
 }
 
@@ -25,10 +29,19 @@ h1 {
 }
 
 .nav-list-item {
-    margin-left: 10px;
-    font-size: 1.1rem;
+    margin-left: 25px;
+    font-size: 1.2rem;
 }
 
-.nav-logo {
-    width: 55px;
+ol li {
+    margin-left: 2em;
+    line-height: 1.5em;
+}
+
+a {
+    color: darkblue;
+}
+
+a:hover {
+    color: #0974f1;
 }

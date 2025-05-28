@@ -4,12 +4,24 @@ const root = createRoot(document.getElementById("root"))
 function Header() {
     return (
         <header className="header">
-            <img src="react-logo.png" className="nav-logo" alt="React logo" />
+            <h1>React Rocks!</h1>
             <nav>
                 <ul className="nav-list">
-                    <li className="nav-list-item">Pricing</li>
-                    <li className="nav-list-item">About</li>
-                    <li className="nav-list-item">Contact</li>
+                    <li className="nav-list-item">
+                        <a href="https://react.dev/">
+                            React Documentation
+                        </a>
+                    </li>
+                    <li className="nav-list-item">
+                        <a href="https://www.reddit.com/r/reactjs/">
+                            ReactJS Subreddit
+                        </a>
+                    </li>
+                    <li className="nav-list-item">
+                        <a href="https://github.com/reactjs">
+                            React Github Community
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </header>
@@ -19,10 +31,11 @@ function Header() {
 function MainContent() {
     return (
         <main>
-            <h1>Reason I am excited to learn React</h1>
+            <h2>Reasons I am excited to learn React</h2>
             <ol>
                 <li>React is a popular library, so I will be able to fit in with all the coolest devs out there! 😎</li>
                 <li>I am more likely to get a job as a front end developer if I know React</li>
+                <li>I am excited to learn about the benefits, like optimization of page spped, with using React</li>
             </ol>
         </main>
     )
@@ -31,7 +44,7 @@ function MainContent() {
 function Footer() {
     return (
         <footer>
-            <small>© 2024 Ricci development. All rights reserved.</small>
+            <small>©2025 Ricci development. All rights reserved.</small>
         </footer>
     )
 }
