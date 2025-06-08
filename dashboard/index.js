@@ -1,3 +1,5 @@
+
+
 // Background image
 
 function getRandomBackground() {
@@ -89,39 +91,69 @@ function getCurrentTime() {
 
 // Weather section
 
-
 function getCurrentLocationWeatherProperties(latitude, longitude) {
+    let forecastTimeOfDay = "day"
+
     fetch(`https://api.weather.gov/points/${latitude},${longitude}`)
         .then(res => res.json())
         .then(data => {
-            get7DayWeatherForecast(data.properties.forecast)      
+            const forecastUrl = data.properties.forecast
+            get7DayWeatherForecast(forecastUrl, forecastTimeOfDay)    
+            
+            const forecastTimeRadios = document.querySelectorAll("input[name='forecast-time']")
+
+            forecastTimeRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    console.log("Change!")
+                    if (radio.checked) forecastTimeOfDay = radio.value
+                    get7DayWeatherForecast(forecastUrl, forecastTimeOfDay)
+                })
+            })
         })
 }
 
-function get7DayWeatherForecast(forecastUrl) {
+function get7DayWeatherForecast(forecastUrl, forecastTimeOfDay) {
+
     fetch(forecastUrl)
         .then(res => res.json())
         .then(data => {
-            render7DayWeatherForecast(data.properties)
+            render7DayWeatherForecast(data.properties, forecastTimeOfDay)
         })
+
 }
 
-function render7DayWeatherForecast(forecast) {
+function render7DayWeatherForecast(forecast, forecastTimeOfDay) {
     const forecastGenerationDatetime = new Date(forecast.generatedAt)
+
     document.getElementById("weather-last-updated").innerText = `
         Forecast generated: ${forecastGenerationDatetime.toLocaleDateString()} at ${forecastGenerationDatetime.toLocaleTimeString()}
     `
 
     const [current, ...rest] = forecast.periods
-    const displayedForecast = [current, ...rest.filter(period => period.isDaytime)]
+    const displayedForecast = [...rest.filter(period => forecastTimeOfDay === "day" ? period.isDaytime : !period.isDaytime )]
 
-    document.getElementById("forecast-container").innerHTML = displayedForecast.map(period => `
+    document.getElementById("current-forecast-container").innerHTML = renderWeatherPeriod(current)
+
+    document.getElementById("future-forecast-container").innerHTML = displayedForecast.map(period => renderWeatherPeriod(period)).join('')
+
+    function renderWeatherPeriod(period) {
+        return `
             <div class="weather-period-container">
                 <img class="weather-period-icon" src="${period.icon}" />
                 <h4 class="weather-period-name">${period.name}</h4>
                 <p class="weather-period-temperature-text">${period.temperature}</p>
             </div>
-        `).join('')
+        `
+    }
+
+    const forecastTimeRadios = document.querySelectorAll("input[name='forecast-time']")
+
+    forecastTimeRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            if (radio.checked) forecastTimePeriod = radio.value
+        })
+    })
+    
 }
 
 // Most frequently visited websites

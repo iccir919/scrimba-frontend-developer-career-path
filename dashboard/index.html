@@ -29,20 +29,43 @@
                 <section class="time-container">
                     <h2 id="time-text"></h2>
                 </section>
+            </div>
+            <div class="layout-col right-col">
                 <section class="current-location-section">
-                    <h2>Current Location</h2>
+                    <header>
+                        <h2>Current Location</h2>
+                        <span id="current-location-result"></span>
+                    </header>
                     <form id="zip-code-form">
                         <label for="zipcode">ZIP Code:</label>
                         <input type="text" id="zipcode-input" name="zipcode" pattern="\d{5}" maxlength="5" inputmode="numeric" required>
                         <button type="submit">Submit</button>
                     </form>
-                    <div id="current-location-result"></div>
                 </section>
-            </div>
-            <div class="layout-col right-col">
                 <section class="weather-section">
+                    <header>
+                        <h2>Weather</h2>
+                        <form>
+                            <fieldset class="forecast-time-input">
+                                <legend>Time of day:</legend>
+                                <label>
+                                    <input type="radio" name="forecast-time" value="day" checked>
+                                    Day ☀️
+                                </label>
+                                <label>
+                                    <input type="radio" name="forecast-time" value="night">
+                                    Night 🌙
+                                </label>
+                            </fieldset>
+                        </form>
+                    </header>
                     <div id="forecast-container">
-    
+                        <h3>Current Forecast</h3>
+                        <div id="current-forecast-container">
+                        </div>
+                        <h3>Future Forecast</h3>
+                        <div id="future-forecast-container">
+                        </div>
                     </div>
                     <p id="weather-last-updated"></p>
                 </section>

@@ -37,12 +37,13 @@ main {
 }
 
 .right-col {
-    justify-content: center;
+    justify-content: space-around;
 }
 
 /* Title section */
 
 .app-title {
+    margin: 0;
     font-size: 2.75rem;
 }
 
@@ -104,8 +105,14 @@ main {
     flex-direction: column;
 }
 
+.weather-section > header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .weather-period-icon {
-    width: 4vw;
+    width: 3.5vw;
 }
 
 .weather-period-container {
@@ -147,11 +154,17 @@ main {
 }
 
 /* Current location input */
-.current-location-section {
-    margin-left: auto;
-    margin-right: auto;
+.current-location-section > header {
+    display: flex;
+    justify-content: space-between;
 }
 
+.current-location-section > form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
 
 /* Responsive design */ 
 
