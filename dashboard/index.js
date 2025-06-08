@@ -68,12 +68,16 @@ function getZipCodeProperties(zipCode) {
             localStorage.setItem("zipCode", zipCode)
             document.getElementById("zipcode-input").placeholder = zipCode
 
+            document.getElementById("current-location-heading").textContent = "Current Location:"
             const place = data.places[0]
             currentLocationResultDiv.innerHTML = `<h2>${place["place name"]}, ${place["state abbreviation"]}</h2>`
 
             const { longitude, latitude }  = place
+
             getCurrentLocationWeatherProperties(latitude, longitude)
+            document.getElementById("weather-section").style.display = "block"
             getMoonInformation(latitude, longitude)
+            document.getElementById("moon-section").style.display = "flex"
         })
         .catch(err => {
             currentLocationResultDiv.innerHTML = `<p>${err.message}</p>`

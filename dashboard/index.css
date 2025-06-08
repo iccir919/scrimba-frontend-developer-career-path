@@ -51,9 +51,9 @@ main {
 
 /* Moon section */ 
 
-.moon-section {
+#moon-section {
+    display: none;
     padding: 1em;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -102,8 +102,9 @@ main {
 
 /* Weather section */ 
 
-.weather-section {
+#weather-section {
     margin-top: 1em;
+    display: none;
 }
 
 #forecast-container {
@@ -119,7 +120,7 @@ main {
     font-size: 1rem;
 }
 
-.weather-section > header {
+#weather-section > header {
     display: flex;
     justify-content: space-between;
 }
