@@ -10,8 +10,8 @@
                 <section>
                     <h1 class="app-title">Personal Dashboard</h1>
                 </section>
-                <section>
-                    <h2 class="frequent-websites-section-heading">Top 10 Recently Frequently Visited Websites</h2>
+                <section id="most-frequent-websites-section">
+                    <h2 class="section-heading">Top 10 Recently Frequently Visited Websites</h2>
                     <ol id="frequent-websites-container">
 
                     </ol>
@@ -29,11 +29,9 @@
                 <section class="time-container">
                     <h2 id="time-text"></h2>
                 </section>
-            </div>
-            <div class="layout-col right-col">
                 <section class="current-location-section">
                     <header>
-                        <h2>Current Location</h2>
+                        <h2 class="section-heading">Current Location</h2>
                         <span id="current-location-result"></span>
                     </header>
                     <form id="zip-code-form">
@@ -42,11 +40,13 @@
                         <button type="submit">Submit</button>
                     </form>
                 </section>
+            </div>
+            <div class="layout-col right-col">
                 <section class="weather-section">
                     <header>
-                        <h2>Weather</h2>
+                        <h2 class="section-heading">Weather</h2>
                         <form>
-                            <fieldset class="forecast-time-input">
+                            <fieldset class="forecast-time-radios">
                                 <legend>Time of day:</legend>
                                 <label>
                                     <input type="radio" name="forecast-time" value="day" checked>

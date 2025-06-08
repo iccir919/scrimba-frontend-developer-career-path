@@ -18,8 +18,9 @@ function getRandomColor() {
 function generateRandomLinearGradient() {
     const color1 = getRandomColor();
     const color2 = getRandomColor();
-    const gradient = `linear-gradient(to right, ${color1}, ${color2})`;
-    return gradient;
+    const linearGradient = `linear-gradient(to right, ${color1}, ${color2})`;
+    const radialGradient = `radial-gradient(circle at center, ${color1} 0, ${color2} 100%)`
+    return Math.random() < 0.5 ? linearGradient : radialGradient;
 }
 
 // Current location section
@@ -63,9 +64,13 @@ function getZipCodeProperties(zipCode) {
             return res.json()
         })
         .then(data => {
-            localStorage.setItem("zipCode", data["post code"])
+            const zipCode = data["post code"]
+            localStorage.setItem("zipCode", zipCode)
+            document.getElementById("zipcode-input").placeholder = zipCode
+
             const place = data.places[0]
             currentLocationResultDiv.innerHTML = `<h2>${place["place name"]}, ${place["state abbreviation"]}</h2>`
+
             const { longitude, latitude }  = place
             getCurrentLocationWeatherProperties(latitude, longitude)
             getMoonInformation(latitude, longitude)
@@ -104,7 +109,6 @@ function getCurrentLocationWeatherProperties(latitude, longitude) {
 
             forecastTimeRadios.forEach(radio => {
                 radio.addEventListener('change', () => {
-                    console.log("Change!")
                     if (radio.checked) forecastTimeOfDay = radio.value
                     get7DayWeatherForecast(forecastUrl, forecastTimeOfDay)
                 })
@@ -159,6 +163,8 @@ function render7DayWeatherForecast(forecast, forecastTimeOfDay) {
 // Most frequently visited websites
 
 function getBrowsingHistory() {
+    if ( !chrome.history ) document.getElementById("most-frequent-websites-section").style.display = "none"
+
     const today = new Date()
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(today.getDate() - 7)

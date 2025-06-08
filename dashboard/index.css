@@ -7,13 +7,15 @@ html, body {
 }
 
 body {
+    height: 100vh;
+    padding: 1.5em;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     text-shadow: 0px 0px 20px #242424;
 }
 
 main {
-    height: 100vh;
+    height: 100%;
     display: flex;
     justify-content: space-between;
     gap: 1%;
@@ -29,21 +31,21 @@ main {
 }
 
 .left-col {
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .mid-col {
     justify-content: space-around;
 }
 
-.right-col {
-    justify-content: space-around;
+.section-heading {
+    font-size: 1.5rem;
 }
 
 /* Title section */
 
 .app-title {
-    margin: 0;
+    margin-top: .25em;
     font-size: 2.75rem;
 }
 
@@ -100,19 +102,30 @@ main {
 
 /* Weather section */ 
 
+.weather-section {
+    margin-top: 1em;
+}
+
 #forecast-container {
     display: flex;
     flex-direction: column;
 }
 
+.forecast-time-radios > legend {
+    font-size: .9rem;
+}
+
+.forecast-time-radios > label {
+    font-size: 1rem;
+}
+
 .weather-section > header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
 .weather-period-icon {
-    width: 3.5vw;
+    width: 3vw;
 }
 
 .weather-period-container {
@@ -122,11 +135,11 @@ main {
 }
 
 .weather-period-name {
-    font-size: 1.25rem;
+    font-size: 1.05rem;
 }
 
 .weather-period-temperature-text {
-    font-size: 1.5rem;
+    font-size: 1.15rem;
     font-weight: bold;
 }
 
@@ -135,10 +148,6 @@ main {
 }
 
 /* Most frequent website section */ 
-
-.frequent-websites-section-heading {
-    font-size: 1.5rem;
-}
 
 .frequent-website-list-item {
     margin: 0.75em 0;
@@ -157,6 +166,7 @@ main {
 .current-location-section > header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .current-location-section > form {
