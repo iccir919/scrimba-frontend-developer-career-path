@@ -139,6 +139,7 @@ function render7DayWeatherForecast(forecast, forecastTimeOfDay) {
 
     const [current, ...rest] = forecast.periods
     const displayedForecast = [...rest.filter(period => forecastTimeOfDay === "day" ? period.isDaytime : !period.isDaytime )]
+    if (forecastTimeOfDay === "night") displayedForecast.pop()
 
     document.getElementById("current-forecast-container").innerHTML = renderWeatherPeriod(current)
 
