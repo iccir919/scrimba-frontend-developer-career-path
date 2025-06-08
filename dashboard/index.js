@@ -163,7 +163,10 @@ function render7DayWeatherForecast(forecast, forecastTimeOfDay) {
 // Most frequently visited websites
 
 function getBrowsingHistory() {
-    if ( !chrome.history ) document.getElementById("most-frequent-websites-section").style.display = "none"
+    if ( !chrome.history ) {
+        document.getElementById("most-frequent-websites-section").style.display = "none"
+        return
+    } 
 
     const today = new Date()
     const sevenDaysAgo = new Date();
