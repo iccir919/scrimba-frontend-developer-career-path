@@ -6,7 +6,7 @@ export default function Info(props) {
         websiteUrl 
     } = props.personInfo
     return (
-        <header>
+        <header className="info-section-container">
             <img 
                 className="person-img"
                 src={props.personImgUrl}  

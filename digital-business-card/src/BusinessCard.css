@@ -3,26 +3,41 @@ body {
   margin: 0;
 }
 
-main {
-  height: 100vh;
+body {
+  padding: 45px 115px;
+  background-color: #23252C;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Inter", sans-serif;
 }
 
 .business-card-container {
   width: 315px;
-  height: 315px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+}
+
+/* Info section */
+
+.info-section-container {
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding-bottom: 20px;
 }
 
 .person-img {
   width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .person-info-details-container {
+  margin-top: 1em;
   text-align: center;
-  padding-top: 1.1em;
 }
 
 .person-name {
@@ -39,6 +54,8 @@ main {
   font-size: 0.75rem;
 }
 
+/* Info Section buttons */
+
 .person-info-buttons-container {
   margin-top: 1.25em;
   display: flex;
@@ -49,7 +66,7 @@ main {
 .person-info-buttons-container > button {
   width: 115px;
   height: 35px;
-  font-size: 1rem;
+  font-size: .9rem;
   border-radius: 5px;
 }
 
@@ -62,10 +79,71 @@ main {
   border: 1px solid gray;
 }
 
-.btn-dark {
+.btn-light:hover {
+  background-color: rgb(221, 220, 220);
+}
 
+.btn-dark {
+  background-color: #297FE5;
+  border: none;
+  color: white;
+}
+
+.btn-dark:hover {
+  background-color: #1f5ca6;
 }
 
 .btn-icon {
   margin-right: 0.5em;
+}
+
+/* Topic sections */
+
+.topic-section-container {
+  background-color: white;
+  padding-left: 35px;
+  padding-right: 35px;
+}
+
+.topic-section-title {
+  font-size: 1rem;
+  margin-top: .25em;
+  margin-bottom: 0.25em;
+}
+
+.topic-section-content {
+  margin-top: 0;
+  font-size: .75rem;
+  line-height: 1.5;
+}
+
+.topic-section-container:last-of-type {
+  padding-bottom: 1.5em;
+}
+
+/* Footer */
+
+footer {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  background-color: #D5D4D8;
+}
+
+.socials-list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1.5em;
+}
+
+.social-icon {
+  color: #918E9B;
+  font-size: 2rem;
+}
+
+.social-icon:hover {
+  color: #6f6c76;
 }
