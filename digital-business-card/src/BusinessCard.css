@@ -63,16 +63,17 @@ body {
   gap: 1em;
 }
 
-.person-info-buttons-container > button {
+.info-btn {
   width: 115px;
   height: 35px;
   font-size: .9rem;
   border-radius: 5px;
 }
 
-.person-info-buttons-container > button:hover {
+.info-btn:hover {
   cursor: pointer;
 }
+
 
 .btn-light {
   background-color: white;

@@ -8,7 +8,7 @@ export default {
         linkedIn: "https://www.linkedin.com/in/neil-ricci/",       
     },
     about: "I am a frontend developer with a particular interest in continuously bringing the user's experience into the product roadmap. I am currently learning React, the most popular frontend JavaScript framework.",
-    interests: "Enjoys homemade meals. Favorite music genre is plunderphonics. Wannabe reader. Seeking local travel adventures. Bike advocate. Theme park enthusiast. Film connoisseur. Likes iced coffee.",
+    interests: "Enjoying homemade meals. Favorite music genre is plunderphonics. Wannabe reader. Looking out for California adventures. Bike advocate. Theme park enthusiast. Film connoisseur. Iced coffee.",
     socials: [
         {
             twitter: "https://x.com/realNeilVR"
