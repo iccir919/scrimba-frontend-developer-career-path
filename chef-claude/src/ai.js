@@ -5,7 +5,7 @@ You are an assistant that receives a list of ingredients that a user has and sug
 `
 
 const anthropic = new Anthropic({
-    apiKey: import.meta.env.VITE_ANTHROPIC_API_KEY,
+    apiKey: process.env.ANTHROPIC_API_KEY,
     dangerouslyAllowBrowser: true,
 })
 
