@@ -1,11 +1,15 @@
 import React from "react"
 import IngredientsList from "./components/IngredientsList"
+import ClaudeRecipe from "./components/ClaudeRecipe"
 import { getRecipeFromChefClaude  } from "./ai"
+import { getRecipeFromLambda } from "./lambda"
 
 
 export default function Main() {
 
     const [ingredients, setIngredients] = React.useState([])
+
+    const [recipe, setRecipe] = React.useState("")
 
     function addIngredient(formData) {
         const newIngredient = formData.get("ingredient")
@@ -13,8 +17,8 @@ export default function Main() {
     }
 
     async function getRecipe() {
-        const recipeMarkdown = await getRecipeFromChefClaude(ingredients)
-        console.log(recipeMarkdown)
+        const recipeMarkdown = await getRecipeFromLambda(ingredients)
+        setRecipe(recipeMarkdown)
     }
     
     return (
@@ -36,6 +40,7 @@ export default function Main() {
                 />
             }
 
+            {recipe && <ClaudeRecipe recipe={recipe} />}
         </main>
     )
 }
