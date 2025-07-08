@@ -1,15 +1,22 @@
 import React from "react"
-import IngredientsList from "./components/IngredientsList"
-import ClaudeRecipe from "./components/ClaudeRecipe"
-import { getRecipeFromChefClaude  } from "./ai"
-import { getRecipeFromLambda } from "./lambda"
+import IngredientsList from "./IngredientsList"
+import ClaudeRecipe from "./ClaudeRecipe"
+import { getRecipeFromChefClaude  } from "../ai"
+import { getRecipeFromLambda } from "../lambda"
 
 
 export default function Main() {
 
-    const [ingredients, setIngredients] = React.useState([])
+    const [ingredients, setIngredients] = React.useState(["garlic", "butter", "toast", "oregano"])
 
     const [recipe, setRecipe] = React.useState("")
+    const recipeSection = React.useRef(null)
+
+    React.useEffect(() => {
+        if (recipe !== "" && recipeSection.current != null) {
+            recipeSection.current.scrollIntoView()
+        }
+    }, [recipe])
 
     function addIngredient(formData) {
         const newIngredient = formData.get("ingredient")
@@ -35,6 +42,7 @@ export default function Main() {
 
             {ingredients.length > 0 &&
                 <IngredientsList
+                    ref={recipeSection}
                     ingredients={ingredients}
                     getRecipe={getRecipe}
                 />
