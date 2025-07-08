@@ -7,7 +7,7 @@ import { getRecipeFromLambda } from "../lambda"
 
 export default function Main() {
 
-    const [ingredients, setIngredients] = React.useState(["garlic", "butter", "toast", "oregano"])
+    const [ingredients, setIngredients] = React.useState([])
 
     const [recipe, setRecipe] = React.useState("")
     const recipeSection = React.useRef(null)
