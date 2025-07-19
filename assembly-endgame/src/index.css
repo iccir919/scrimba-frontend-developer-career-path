@@ -36,6 +36,7 @@ section.game-status {
   align-items: center;
   color: #F9F4DA;
   border-radius: 4px;
+  margin-block: 30px;
 }
 
 section.game-status h2 {
@@ -47,3 +48,15 @@ section.game-status p {
   margin: 5px;
 }
 
+section.language-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  max-width: 350px;
+}
+
+span.chip {
+  border-radius: 3px;
+  padding: 4.5px;
+}
