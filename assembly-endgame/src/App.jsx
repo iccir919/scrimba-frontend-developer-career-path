@@ -1,4 +1,5 @@
 import React from 'react'
+import { clsx } from "clsx"
 import { languages } from "./languages.js"
 
 function App() {
@@ -37,14 +38,25 @@ function App() {
     <span key={index}>{letter.toUpperCase()}</span>
   ))
 
-  const keyboardElements = alphabet.split("").map(letter => (
-    <button 
-      key={letter}
-      onClick={() => addGuessedLetter(letter)}
-    >
-      {letter.toUpperCase()}
-    </button>
-  ))
+  const keyboardElements = alphabet.split("").map(letter => {
+    const isGussed = guessedLetters.includes(letter)
+    const isCorrect = isGussed & currentWord.includes(letter)
+    const isWrong = isGussed && !currentWord.includes(letter)
+    const className = clsx({
+      correct: isCorrect,
+      wrong: isWrong
+    })
+
+    return (
+      <button 
+        className={className}
+        key={letter}
+        onClick={() => addGuessedLetter(letter)}
+      >
+        {letter.toUpperCase()}
+      </button>
+    )
+})
 
   return (
     <main>
