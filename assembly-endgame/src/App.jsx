@@ -5,6 +5,8 @@ function App() {
 
   const [currentWord, setCurrentWord] = React.useState("react")
 
+  const alphabet = "abcdefghijklmnopqrstuvwxyz"
+
   const languageElements = languages.map(lang => {
     const styles = {
       backgroundColor: lang.backgroundColor,
@@ -25,6 +27,10 @@ function App() {
     <span key={index}>{letter.toUpperCase()}</span>
   ))
 
+  const keyboardElements = alphabet.split("").map(letter => (
+    <button key={letter}>{letter.toUpperCase()}</button>
+  ))
+
   return (
     <main>
       <header>
@@ -40,6 +46,9 @@ function App() {
       </section>
       <section className="word">
         {letterElements}
+      </section>
+      <section className="keyboard">
+        {keyboardElements}
       </section>
     </main>
   )
