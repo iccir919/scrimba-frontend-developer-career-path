@@ -22,14 +22,16 @@ function App() {
     )
   }
 
-  const languageElements = languages.map(lang => {
+  const languageElements = languages.map((lang, index) => {
+    const isLanguageLost = index < wrongGuessCount
     const styles = {
       backgroundColor: lang.backgroundColor,
       color: lang.color
     }
+    const className = clsx("chip", isLanguageLost)
     return (
       <span
-        className="chip"
+        className={className}
         style={styles}
         key={lang.name}
       >
