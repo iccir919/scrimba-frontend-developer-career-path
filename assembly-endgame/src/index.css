@@ -100,6 +100,7 @@ section.keyboard {
   gap: 8px;
   justify-content: center;
   max-width: 450px;
+  margin-bottom: 36px;
 }
 
 section.keyboard > button {
@@ -117,4 +118,16 @@ section.keyboard > button.correct {
 
 section.keyboard > button.wrong {
   background-color: #EC5D49;
+}
+
+button.new-game {
+  background-color: #11B5E5;
+  border: 1px solid #D7D7D7;
+  border-radius: 4px;
+  width: 225px;
+  height: 40px;
+  padding: 6px 12px;
+  display: block;
+  margin-inline: auto;
+  cursor: pointer;
 }
