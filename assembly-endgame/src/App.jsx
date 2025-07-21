@@ -9,7 +9,6 @@ function App() {
 
   // Derived values
   const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length
-  console.log(wrongGuessCount)
 
   // Static values
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
@@ -28,7 +27,7 @@ function App() {
       backgroundColor: lang.backgroundColor,
       color: lang.color
     }
-    const className = clsx("chip", isLanguageLost)
+    const className = clsx("chip", isLanguageLost && "lost")
     return (
       <span
         className={className}
@@ -41,7 +40,7 @@ function App() {
   })
 
   const letterElements = currentWord.split("").map((letter, index) => (
-    <span key={index}>{letter.toUpperCase()}</span>
+    <span key={index}>{guessedLetters.includes(letter) ? letter.toUpperCase() : ""}</span>
   ))
 
   const keyboardElements = alphabet.split("").map(letter => {
