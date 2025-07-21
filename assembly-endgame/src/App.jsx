@@ -3,11 +3,15 @@ import { clsx } from "clsx"
 import { languages } from "./languages.js"
 
 function App() {
-
+  // State values
   const [currentWord, setCurrentWord] = React.useState("react")
   const [guessedLetters, setGuessedLetters] = React.useState([])
-  console.log(guessedLetters)
 
+  // Derived values
+  const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length
+  console.log(wrongGuessCount)
+
+  // Static values
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
   function addGuessedLetter(letter) {
