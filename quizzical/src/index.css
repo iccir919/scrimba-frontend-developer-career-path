@@ -1,3 +1,42 @@
 * {
   box-sizing: border-box;
 }
+
+body {
+  margin: 0;
+  height: 100vh;
+  background-color: #F5F7FB;
+  font-family: "Karla", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.introduction-container {
+  text-align: center;
+}
+
+.introduction-container > h1 {
+  margin: 0;
+}
+
+.introduction-container > p {
+  margin: 0.5em auto;
+}
+
+.introduction-container > button {
+  margin-top: 1.5em;
+  width: 190px;
+  height: 50px;
+  border-radius: 15px;
+  border: none;
+  background-color: #4D5B9E;
+  color: #F5F7FB;
+  font-size: 1rem;
+}
+
+.introduction-container > button:hover,
+.introduction-container > button:focus {
+  cursor: pointer;
+  background-color: #3b4679;
+}

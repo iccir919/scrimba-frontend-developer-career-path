@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Introduction from "./Introduction"
 import Questions from './Questions'
 
 function App() {
 
   const [showQuiz, setShowQuiz] = useState(false)
+  const [questions, setQuestions] = useState([])
+
+
 
   function startQuiz() {
     setShowQuiz(true)
