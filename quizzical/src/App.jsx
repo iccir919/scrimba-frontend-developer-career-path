@@ -1,34 +1,39 @@
 import { useState, useEffect } from 'react'
 import Introduction from "./Introduction"
-import Questions from './Questions'
+import Quiz from "./Quiz"
+import testData from "./testData"
 
 function App() {
 
-  const [showQuiz, setShowQuiz] = useState(false)
-  const [questions, setQuestions] = useState([])
+  const [showQuiz, setShowQuiz] = useState(true)
+  const [questions, setQuestions] = useState(testData)
 
   function startQuiz() {
     setShowQuiz(true)
   }
 
-  useEffect(() => {
-    fetch("https://opentdb.com/api.php?amount=5")
-      .then(res => {
-        if (!res.ok) throw Error("Something went wrong")
-        return res.json()
-      })
-      .then(data => {
-        console.log(data.results)
-      })
-      .catch(err => {
-        console.error(err)
-      })
-  }, [])
+  // useEffect(() => {
+  //   fetch("https://opentdb.com/api.php?amount=5&type=multiple")
+  //     .then(res => {
+  //       if (!res.ok) throw Error("Something went wrong")
+  //       return res.json()
+  //     })
+  //     .then(data => {
+  //       console.log(data.results)
+  //       setQuestions(data.results)
+  //     })
+  //     .catch(err => {
+  //       console.error(err)
+  //     })
+  // }, [])
 
   return (
     <main>
       {
-        showQuiz ? <Questions /> : <Introduction startQuiz={startQuiz} />
+        showQuiz ? 
+        <Quiz 
+          questions={questions} 
+        /> : <Introduction startQuiz={startQuiz} />
       }
     </main>
   )
