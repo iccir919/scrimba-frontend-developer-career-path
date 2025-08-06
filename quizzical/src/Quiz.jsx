@@ -1,11 +1,19 @@
 import Question from "./Question"
 
 export default function Quiz(props) {
+
+    function verify(formData) {
+        console.log("Submitted!")
+        for( let prop of formData.entries()) {
+            console.log(prop)
+        }
+    }
+
     return (
-        <form>
-            {props.questions.map((question, idx) => (
+        <form action={verify}>
+            {props.questions.map((question) => (
                 <Question 
-                    key={idx}
+                    key={`question-${question.question_id}`}
                     question={question}
                 />
             ))}
