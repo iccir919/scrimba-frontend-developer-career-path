@@ -41,6 +41,12 @@ button:focus {
   background-color: #3b4679;
 }
 
+button.disabled {
+  cursor: not-allowed;
+  background-color: #3b46793a;  
+}
+
+
 .quiz-container {
   width: 970px;
 }

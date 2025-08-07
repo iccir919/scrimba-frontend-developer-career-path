@@ -81,6 +81,7 @@ function App() {
           questions={questions} 
           guesses={guesses}
           handleGuess={handleGuess}
+          verifyGuesses
         /> : <Introduction startQuiz={startQuiz} />
       }
     </main>
