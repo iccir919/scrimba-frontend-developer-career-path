@@ -9,7 +9,7 @@ function App() {
   const [showQuiz, setShowQuiz] = useState(true)
   const [questions, setQuestions] = useState(decodeAndFormatQuestions(testData))
   const [guesses, setGuesses] = useState(questions.map(question => ({ "question_id": question.question_id, "guess": null })))
-  console.log(guesses)
+  console.log("guesses_state", guesses)
 
   function startQuiz() {
     setShowQuiz(true)

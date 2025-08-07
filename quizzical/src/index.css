@@ -61,7 +61,6 @@ button:focus {
 
 .answers-container label {
   padding: 10px 20px;
-  background-color: #D6DBF5;
   border: 1px solid #293264;
   border-radius: .5em;
 }
@@ -69,4 +68,8 @@ button:focus {
 .answers-container label:hover,
 .answers-container label:focus {
   cursor: pointer;
+}
+
+.answers-container label.guessed {
+  background-color: #D6DBF5;
 }

@@ -16,7 +16,7 @@ export default function Quiz({ questions, guesses, handleGuess }) {
                     key={`question-${question.question_id}`}
                     question={question}
                     handleGuess={handleGuess}
-                    guess={guesses.filter(guess => guess.question_id === question.question_id)[0]}
+                    guessObj={guesses.filter(guess => guess.question_id === question.question_id)[0]}
                 />
             ))}
             <button>Check answers</button>
