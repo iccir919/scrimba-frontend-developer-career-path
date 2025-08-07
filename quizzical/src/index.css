@@ -24,7 +24,7 @@ body {
   margin: 0.5em auto;
 }
 
-.introduction-container > button {
+ button {
   margin-top: 1.5em;
   width: 190px;
   height: 50px;
@@ -35,8 +35,38 @@ body {
   font-size: 1rem;
 }
 
-.introduction-container > button:hover,
-.introduction-container > button:focus {
+button:hover,
+button:focus {
   cursor: pointer;
   background-color: #3b4679;
+}
+
+.quiz-container {
+  width: 970px;
+}
+
+.question-container > h2 {
+  color: #293264;
+  font-size: 1rem;
+}
+
+.answers-container {
+  display: flex;
+  gap: 0.75em;
+}
+
+.answers-container input[type="radio"] {
+  display: none;
+}
+
+.answers-container label {
+  padding: 10px 20px;
+  background-color: #D6DBF5;
+  border: 1px solid #293264;
+  border-radius: .5em;
+}
+
+.answers-container label:hover,
+.answers-container label:focus {
+  cursor: pointer;
 }

@@ -8,30 +8,43 @@ function App() {
 
   const [showQuiz, setShowQuiz] = useState(true)
   const [questions, setQuestions] = useState(decodeAndFormatQuestions(testData))
+  const [guesses, setGuesses] = useState(questions.map(question => ({ "question_id": question.question_id, "guess": null })))
+  console.log(guesses)
 
   function startQuiz() {
     setShowQuiz(true)
   }
 
-  function decodeAndFormatQuestions(questions) {
-    return questions.map((question, question_index) => {
-        const decodedQuestion = {
-        ...question,
-        question: decode(question.question),
-        incorrect_answers: question.incorrect_answers.map(answer => decode(answer)),
-        correct_answer: decode(question.correct_answer),
-        question_id: question_index + 1
-      }
-
-      decodedQuestion.possible_answers = 
-        randomlyInsertElement(decodedQuestion.correct_answer, decodedQuestion.incorrect_answers)
-        .map((answer, answer_index) => ({
-          answer: answer,
-          answer_id: answer_index + 1
-        }))
-
-      return decodedQuestion
+  function handleGuess(guess_answer, question_id) {
+    setGuesses(prevGuesses => {
+      return prevGuesses.map(guessObj => {
+        if (guessObj.question_id === question_id) { 
+          if (guessObj.guess === null || guessObj.guess !== guess_answer) {
+            return {
+              ...guessObj,
+              guess: guess_answer
+            }
+          } else {
+            return guessObj
+          }
+        } else {
+          return guessObj
+        }
+      })
     })
+  }
+
+  function decodeAndFormatQuestions(questions) {
+    return questions.map((question, question_index) => (
+        {
+          ...question,
+          question: decode(question.question),
+          incorrect_answers: question.incorrect_answers.map(answer => decode(answer)),
+          correct_answer: decode(question.correct_answer),
+          question_id: `question_${question_index + 1}`,
+          possible_answers: randomlyInsertElement(question.correct_answer, question.incorrect_answers)
+        }
+    ))
   }
 
 
@@ -66,6 +79,8 @@ function App() {
         showQuiz ? 
         <Quiz 
           questions={questions} 
+          guesses={guesses}
+          handleGuess={handleGuess}
         /> : <Introduction startQuiz={startQuiz} />
       }
     </main>
