@@ -1,16 +1,18 @@
 import clsx from "clsx"
 
-export default function Question({ question, guessObj, handleGuess }) {
+export default function Question({ question, guessObj, handleGuess, isQuizCompleted }) {
 
     return (
         <div className="question-container">
             <h2>{question.question}</h2>
             <div className="answers-container">
                 {question.possible_answers.map((answer, answer_index) => {
-                    
                     const guessedAnswer = answer === guessObj.guess
+                    const correctAnswer = answer === question.correct_answer
                     const answerClassName = clsx({
-                        "guessed": guessedAnswer
+                        "guessed": !isQuizCompleted && guessedAnswer,
+                        "correct": isQuizCompleted && correctAnswer,
+                        "incorrect": isQuizCompleted && guessedAnswer && !correctAnswer
                     })
 
                     return (

@@ -9,7 +9,7 @@ function App() {
   const [showQuiz, setShowQuiz] = useState(true)
   const [questions, setQuestions] = useState(decodeAndFormatQuestions(testData))
   const [guesses, setGuesses] = useState(questions.map(question => ({ "question_id": question.question_id, "guess": null })))
-  console.log("guesses_state", guesses)
+  const [isQuizCompleted, setIsQuizCompleted] = useState(false)
 
   function startQuiz() {
     setShowQuiz(true)
@@ -47,6 +47,14 @@ function App() {
     ))
   }
 
+  function handleQuizSubmit() {
+    setIsQuizCompleted(true)
+  }
+
+  function handleNewQuiz() {
+    console.log("New quiz requested")
+  }
+
 
   function randomlyInsertElement(element, array) {
       const index = Math.floor(Math.random() * (array.length + 1))
@@ -81,7 +89,9 @@ function App() {
           questions={questions} 
           guesses={guesses}
           handleGuess={handleGuess}
-          verifyGuesses
+          handleQuizSubmit={handleQuizSubmit}
+          isQuizCompleted={isQuizCompleted}
+          handleNewQuiz={handleNewQuiz}
         /> : <Introduction startQuiz={startQuiz} />
       }
     </main>
