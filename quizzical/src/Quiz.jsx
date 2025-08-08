@@ -5,7 +5,7 @@ import Conclusion from "./Conclusion"
 export default function Quiz({ questions, guesses, handleGuess, handleQuizSubmit, handleNewQuiz, isQuizCompleted,  }) {
 
     const isQuizAnswered = guesses.filter(guessObj => guessObj.guess).length === questions.length
-
+    console.log("guesses", guesses)
     return (
         <div className="quiz-container">
             <form action={handleQuizSubmit}>

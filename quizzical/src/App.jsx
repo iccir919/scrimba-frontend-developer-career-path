@@ -7,12 +7,19 @@ import testData from "./testData"
 function App() {
 
   const [showQuiz, setShowQuiz] = useState(true)
-  const [questions, setQuestions] = useState(decodeAndFormatQuestions(testData))
-  const [guesses, setGuesses] = useState(questions.map(question => ({ "question_id": question.question_id, "guess": null })))
+  const [questions, setQuestions] = useState(decodeAndFormatQuestions([]))
+  const [guesses, setGuesses] = useState(formatQuestionsForGuesses(questions))
   const [isQuizCompleted, setIsQuizCompleted] = useState(false)
 
   function startQuiz() {
     setShowQuiz(true)
+  }
+
+  function formatQuestionsForGuesses(questions) {
+    return questions.map(question => {
+      console.log(question)
+      return question
+    })
   }
 
   function handleGuess(guess_answer, question_id) {
@@ -52,7 +59,7 @@ function App() {
   }
 
   function handleNewQuiz() {
-    console.log("New quiz requested")
+    isQuizCompleted(false)
   }
 
 
@@ -66,20 +73,21 @@ function App() {
       return newArray
   }
 
-  // useEffect(() => {
-  //   fetch("https://opentdb.com/api.php?amount=5&type=multiple")
-  //     .then(res => {
-  //       if (!res.ok) throw Error("Something went wrong")
-  //       return res.json()
-  //     })
-  //     .then(data => {
-  //       console.log(data.results)
-  //       setQuestions(data.results)
-  //     })
-  //     .catch(err => {
-  //       console.error(err)
-  //     })
-  // }, [])
+  useEffect(() => {
+    fetch("https://opentdb.com/api.php?amount=5&type=multiple")
+      .then(res => {
+        if (!res.ok) throw Error("Something went wrong")
+        return res.json()
+      })
+      .then(data => {
+        console.log(data.results)
+        setQuestions(decodeAndFormatQuestions(data.results))
+        setGuesses(formatQuestionsForGuesses(data.results))
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }, [isQuizCompleted])
 
   return (
     <main>
