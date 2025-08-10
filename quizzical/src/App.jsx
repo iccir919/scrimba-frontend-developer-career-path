@@ -2,43 +2,30 @@ import { useState, useEffect } from 'react'
 import { decode } from "html-entities"
 import Introduction from "./Introduction"
 import Quiz from "./Quiz"
-import testData from "./testData"
 
 function App() {
 
-  const [showQuiz, setShowQuiz] = useState(true)
+  const [showQuiz, setShowQuiz] = useState(false)
   const [questions, setQuestions] = useState(decodeAndFormatQuestions([]))
-  const [guesses, setGuesses] = useState(formatQuestionsForGuesses(questions))
   const [isQuizCompleted, setIsQuizCompleted] = useState(false)
+  const [quizVersion, setQuizVersion] = useState(0)
 
   function startQuiz() {
     setShowQuiz(true)
   }
 
-  function formatQuestionsForGuesses(questions) {
-    return questions.map(question => {
-      console.log(question)
-      return question
-    })
+  function retryQuestions() {
+    setQuizVersion(prev => prev + 1)
   }
 
   function handleGuess(guess_answer, question_id) {
-    setGuesses(prevGuesses => {
-      return prevGuesses.map(guessObj => {
-        if (guessObj.question_id === question_id) { 
-          if (guessObj.guess === null || guessObj.guess !== guess_answer) {
-            return {
-              ...guessObj,
-              guess: guess_answer
-            }
-          } else {
-            return guessObj
-          }
-        } else {
-          return guessObj
-        }
-      })
-    })
+    setQuestions(prevQuestions => 
+      prevQuestions.map(question =>
+        question.question_id === question_id 
+        ? {...question, guess: guess_answer}
+        : question
+      )
+    )
   }
 
   function decodeAndFormatQuestions(questions) {
@@ -49,28 +36,34 @@ function App() {
           incorrect_answers: question.incorrect_answers.map(answer => decode(answer)),
           correct_answer: decode(question.correct_answer),
           question_id: `question_${question_index + 1}`,
-          possible_answers: randomlyInsertElement(question.correct_answer, question.incorrect_answers)
+          possible_answers: randomlyInsertElement(
+            decode(question.correct_answer),
+            question.incorrect_answers.map(incorrect_answer => decode(incorrect_answer))
+          ),
+          guess: null
         }
     ))
   }
 
   function handleQuizSubmit() {
+    console.log("Quiz submitted")
     setIsQuizCompleted(true)
   }
 
   function handleNewQuiz() {
-    isQuizCompleted(false)
+    setShowQuiz(false)
+    setIsQuizCompleted(false)
+    setQuizVersion(prev => prev + 1)
   }
 
 
   function randomlyInsertElement(element, array) {
       const index = Math.floor(Math.random() * (array.length + 1))
-      const newArray = [
+      return [
           ...array.slice(0, index),
           element,
           ...array.slice(index)
       ]
-      return newArray
   }
 
   useEffect(() => {
@@ -80,14 +73,12 @@ function App() {
         return res.json()
       })
       .then(data => {
-        console.log(data.results)
         setQuestions(decodeAndFormatQuestions(data.results))
-        setGuesses(formatQuestionsForGuesses(data.results))
       })
       .catch(err => {
         console.error(err)
       })
-  }, [isQuizCompleted])
+  }, [quizVersion])
 
   return (
     <main>
@@ -95,12 +86,16 @@ function App() {
         showQuiz ? 
         <Quiz 
           questions={questions} 
-          guesses={guesses}
           handleGuess={handleGuess}
           handleQuizSubmit={handleQuizSubmit}
           isQuizCompleted={isQuizCompleted}
           handleNewQuiz={handleNewQuiz}
-        /> : <Introduction startQuiz={startQuiz} />
+        /> 
+        : <Introduction 
+          startQuiz={startQuiz} 
+          questions={questions} 
+          retryQuestions={retryQuestions}
+        />
       }
     </main>
   )

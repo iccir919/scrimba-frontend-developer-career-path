@@ -49,9 +49,11 @@ button.disabled {
   background-color: #3b46793a;  
 }
 
-
 .quiz-container {
   width: 970px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .question-container > h2 {
@@ -69,6 +71,10 @@ button.disabled {
 }
 
 .answers-container label {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 0.75rem;
   padding: 10px 20px;
   border: 1px solid #293264;
   border-radius: .5em;
@@ -91,13 +97,23 @@ button.disabled {
   background-color: #F8BCBC;
 }
 
-.conclusion-container {
+.answers-container label.disabled {
+  border: 1px solid #4d5b9e6c;
+  color: #29326480;
+}
+
+
+hr {
+  margin: 1.5em;
+}
+
+.quiz-action-container {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 3em;
 }
 
-.conclusion-container p, .conclusion-container button {
+.quiz-action-container p, .quiz-action-container button {
   margin: 0;
 }

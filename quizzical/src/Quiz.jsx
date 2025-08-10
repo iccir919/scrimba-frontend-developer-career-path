@@ -1,31 +1,32 @@
 import Question from "./Question"
-import SubmitButton from "./SubmitButton"
-import Conclusion from "./Conclusion" 
+import QuizAction from "./QuizAction"
 
-export default function Quiz({ questions, guesses, handleGuess, handleQuizSubmit, handleNewQuiz, isQuizCompleted,  }) {
+export default function Quiz({ questions, handleGuess, handleQuizSubmit, handleNewQuiz, isQuizCompleted }) {
 
-    const isQuizAnswered = guesses.filter(guessObj => guessObj.guess).length === questions.length
-    console.log("guesses", guesses)
+    const isQuizAnswered = questions
+        .map(question => question.guess)
+        .filter(question_guess => question_guess)
+        .length === questions.length
+
     return (
         <div className="quiz-container">
-            <form action={handleQuizSubmit}>
+            <form action={handleQuizSubmit} className="form-container">
                 {questions.map((question) => (
                     <Question 
                         key={`question-${question.question_id}`}
                         question={question}
                         handleGuess={handleGuess}
-                        guessObj={guesses.filter(guess => guess.question_id === question.question_id)[0]}
                         isQuizCompleted={isQuizCompleted}
                     />
                 ))}
-                {!isQuizCompleted && <SubmitButton isQuizAnswered={isQuizAnswered} />}
             </form>
-            {isQuizCompleted && 
-                <Conclusion
-                    handleNewQuiz={handleNewQuiz}
-                    guesses={guesses}
-                    questions={questions} 
-                />}
+            <QuizAction 
+                isQuizCompleted={isQuizCompleted} 
+                questions={questions} 
+                handleNewQuiz={handleNewQuiz}
+                handleQuizSubmit={handleQuizSubmit}
+                isQuizAnswered={isQuizAnswered} 
+            />
         </div>
     )
 }
