@@ -14,10 +14,6 @@ function App() {
     setShowQuiz(true)
   }
 
-  function retryQuestions() {
-    setQuizVersion(prev => prev + 1)
-  }
-
   function handleGuess(guess_answer, question_id) {
     setQuestions(prevQuestions => 
       prevQuestions.map(question =>
@@ -94,7 +90,6 @@ function App() {
         : <Introduction 
           startQuiz={startQuiz} 
           questions={questions} 
-          retryQuestions={retryQuestions}
         />
       }
     </main>
