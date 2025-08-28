@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 
 import Menu from "./components/Menu/index"
 import Badge from "./components/Badge"
+import Banner from "./components/Banner"
 
 import './style.css'
 
@@ -47,7 +48,66 @@ function App() {
         <Badge color="purple" type="pill">Badge</Badge>
         <Badge color="pink" type="pill">Badge</Badge>
       </div>
+
+        <h2>Banners</h2>
+        <div className="banners-container">
+
+          <h4 className="success-title">Success</h4>
+          <h4 className="warning-title">Warning</h4>
+          <h4 className="error-title">Error</h4>
+          <h4 className="neutral-title">Neutral</h4>
+
+          <h3 className="multi-line-title">Multi line</h3>
+          <Banner 
+            status="success" 
+            type="multi" 
+            title="Congratulations!"
+            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam."
+          />
+          <Banner 
+            status="warning" 
+            type="multi" 
+            title="Attention!"
+            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam."
+          />
+          <Banner 
+            status="error" 
+            type="multi" 
+            title="There is a problem with your application."
+            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam."
+          />
+          <Banner 
+            status="neutral" 
+            type="multi" 
+            title="Update available"
+            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam."
+          />   
+
+
+          <h3 className="single-line-title">Single line</h3>
+          <Banner 
+            status="success" 
+            type="single" 
+            title="Congratulations!"
+          />
+          <Banner 
+            status="warning" 
+            type="single" 
+            title="Attention!"
+          />
+          <Banner 
+            status="error" 
+            type="single" 
+            title="There is a problem with your application."
+          />
+          <Banner 
+            status="neutral" 
+            type="single" 
+            title="Update available"
+          />
+        </div>
     </div>
+
   )
 }
 

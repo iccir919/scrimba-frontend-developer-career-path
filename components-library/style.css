@@ -184,3 +184,125 @@ button.button-danger {
     background-color: #FCE7F3;
     color: #9D174D;
 }
+
+
+.banners-container {
+  display: grid;
+  grid-template-columns: 150px 1fr 1fr; /* label | multiline | singleline */
+  grid-template-rows: auto auto auto auto auto; /* 5 rows */
+  grid-template-areas:
+    ". multi-line-title single-line-title"
+    "success-title multi-line-success single-line-success"
+    "warning-title multi-line-warning single-line-warning"
+    "error-title multi-line-error single-line-error"
+    "neutral-title multi-line-neutral single-line-neutral";
+  gap: 1em;
+  align-items: start; /* keep items aligned to top of each grid cell */
+}
+
+
+.multi-line-title     { grid-area: multi-line-title; }
+.single-line-title    { grid-area: single-line-title; }
+
+.success-title        { grid-area: success-title; }
+.warning-title        { grid-area: warning-title; }
+.error-title          { grid-area: error-title; }
+.neutral-title        { grid-area: neutral-title; }
+
+.banner.success.multi   { grid-area: multi-line-success; }
+.banner.success.single  { grid-area: single-line-success; }
+
+.banner.warning.multi   { grid-area: multi-line-warning; }
+.banner.warning.single  { grid-area: single-line-warning; }
+
+
+.banner.error.multi     { grid-area: multi-line-error; }
+.banner.error.single   { grid-area: single-line-error; }
+
+.banner.neutral.multi  { grid-area: multi-line-neutral; }
+.banner.neutral.single { grid-area: single-line-neutral; }
+
+.banner {
+    border-radius: 0.5rem;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 25px auto;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+        "icon banner-title"
+        ". banner-text";
+    gap: 0.25rem 1rem;
+
+}
+
+.banner .icon {
+    grid-area: icon;
+}   
+
+.banner .banner-title {
+    margin: 0;
+    grid-area: banner-title;
+    font-weight: 700;
+    font-size: 1rem;
+    justify-content: left;
+}
+
+.banner .banner-text {
+    grid-area: banner-text;
+    margin: 0.25em 0 0 0;
+}
+
+
+.banner.success {
+    background-color: #ECFDF5;
+}
+.banner.success .banner-title {
+    color: #065F46;
+}
+.banner.success .banner-text {
+    color: #047857;
+}
+.banner.success .icon {
+    color: #34D399;
+}
+
+
+.banner.warning {
+    background-color: #FFFBEB;
+}
+.banner.warning .banner-title {
+    color: #92400E;
+}
+.banner.warning .banner-text {
+    color: #B45309;
+}
+.banner.warning .icon {
+    color: #FBBF24;
+}
+
+
+.banner.error {
+    background-color: #FEF2F2;
+}
+.banner.error .banner-title {
+    color: #92400E;
+}
+.banner.error .banner-text {
+    color: #B45309;
+}
+.banner.error .icon {
+    color: #F87171;
+}
+
+.banner.neutral {
+    background-color: #EFF6FF;
+}
+.banner.neutral .banner-title {
+    color: #1C51B9;
+}
+.banner.neutral .banner-text {
+    color: #1E40AF;
+}
+.banner.neutral .icon {
+    color: #60A5FA;
+}
