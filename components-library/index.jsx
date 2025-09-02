@@ -4,8 +4,17 @@ import ReactDOM from 'react-dom/client';
 import Menu from "./components/Menu/index"
 import Badge from "./components/Badge"
 import Banner from "./components/Banner"
+import Card from "./components/Card"
+import TestimonialWithImage from './components/Testimonial/TestimonialWithImage'
+import TestimonialWithoutImage from './components/Testimonial/TestimonialWithoutImage'
 
+
+import { BsAsterisk } from "react-icons/bs"
+import logoUrl from "./assets/images/logo.png"
+import largeImgUrl from "./assets/images/large-image.png"
+import smallImgUrl from "./assets/images/small-image.png"
 import './style.css'
+
 
 function App() {
   return (
@@ -105,6 +114,48 @@ function App() {
             type="single" 
             title="Update available"
           />
+        </div>
+
+        <h2>Cards</h2>
+        <div className="cards-container">
+
+          <div className="card-example">
+            <h3>Default Text, Icon, and Icon Color</h3>
+            <Card />
+          </div>
+
+          <div className="card-example">
+            <h3>Custom Text, Icon, and Icon Color</h3>
+            <Card
+              title={"This Is A Custom Card Title"}
+              text={"This is some custom card text. You can add any text you want here."}
+              icon={<BsAsterisk />}
+              color={"#6c63ff"}
+            />
+          </div>
+        </div>
+
+        <h2>Testimonials</h2>
+        <div className="testimonials-container">
+          <div className="testimonial-example">
+            <h3>With Logo</h3>
+            <TestimonialWithoutImage
+              logoUrl={logoUrl}
+              testimonial={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed urna nulla vitae laoreet augue. Amet feugiat est integer dolor auctor adipiscing nunc urna, sit."}
+              name={"May Andersons"}
+              position={"Workcation, CTO"}
+            />
+          </div>
+          <div className="testimonial-example">
+            <h3>With Image</h3>
+            <TestimonialWithImage
+              smallImgUrl={smallImgUrl}
+              largeImgUrl={largeImgUrl}
+              testimonial={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed urna nulla vitae laoreet augue. Amet feugiat est integer dolor auctor adipiscing nunc urna, sit."}
+              name={"May Andersons"}
+              position={"Workcation, CTO"}
+            />
+          </div>       
         </div>
     </div>
 

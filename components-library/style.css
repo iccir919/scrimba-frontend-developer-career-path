@@ -306,3 +306,104 @@ button.button-danger {
 .banner.neutral .icon {
     color: #60A5FA;
 }
+
+.cards-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+
+.card {
+    margin: 3em auto 2em auto;
+    padding: 2em 3em;
+    background-color: #F9FAFB;
+    width: 400px;
+    height: 200px;
+    border-radius: 0.5rem;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+  transform: translateY(-6px) scale(1.02); 
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.card-icon {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 50px;
+    width: 50px;
+    border-radius: 0.5rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.testimonial {
+    border-radius: 0.75em;
+    margin: 2em auto;
+    width: 85%;
+}
+
+.with-image {
+    margin-top: 3.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #2545B8;
+    position: relative;
+}
+
+.testimonial-image {
+    position: absolute;
+    top: -2.5em;
+}
+
+.with-image .testimonial-content {
+    color: white;
+    padding: 35% 3em 3em 3em;
+}
+
+.without-image {
+    text-align: center;
+    padding: 3em;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 0.75em;
+}
+
+.logo-img {
+    height: 35px;
+    width: auto;
+    margin-bottom: 1.25em;
+}
+
+blockquote {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin: 0 0 1.5em;
+}
+
+@media (min-width: 768px) {
+    .with-image {
+        padding: 3em;
+        align-items: normal;
+    }
+
+    .testimonial-image img {
+        width: 350px;
+    }
+
+    .with-image .testimonial-content {
+        margin-left: 350px;
+        padding: 0;
+    }
+}
