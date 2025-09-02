@@ -5,5 +5,5 @@ export default defineConfig({
 	plugins: [
 		react()
 	],
-	base: 'https://neil-scrimba-frontend-career-path.netlify.app/components-library/dist/'
+	  base: 'https://neil-scrimba-frontend-career-path.netlify.app/component-library/dist/'
 })
