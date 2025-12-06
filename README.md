@@ -110,9 +110,6 @@ npm start
 
 For vanilla JavaScript projects, simply open the `index.html` file in your browser.
 
-## 📝 Notes
-
-Each project folder contains its own README with specific details about that project's implementation, features, and learning objectives.
 
 ## 🤝 Acknowledgments
 
