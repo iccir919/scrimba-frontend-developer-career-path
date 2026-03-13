@@ -1,8 +1,8 @@
 export async function getRecipeFromLambda(ingredientsArray) {
-    const commaSeparatedIngredients = ingredientsArray.join(","); // "flour,sugar,eggs"
+    const ingredients = encodeURIComponent(ingredientsArray.join(",")); 
 
-    const lambdaUrl = "https://gt3nsrrhjr5ontlmodjk6zggya0sawxu.lambda-url.us-east-1.on.aws/";
-    const url = `${lambdaUrl}?ingredients=${encodeURIComponent(commaSeparatedIngredients)}`; // Encode for safety
+    const lambdaUrl = "https://jk5c5fdfaqd4cyd3ksdv6kklbi0lxcza.lambda-url.us-east-1.on.aws/";
+    const url = `${lambdaUrl}?ingredients=${encodeURIComponent(ingredients)}`; 
 
     try {
         const response = await fetch(url); // Wait for the fetch promise to resolve
