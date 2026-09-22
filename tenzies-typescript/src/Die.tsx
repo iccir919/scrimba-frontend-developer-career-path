@@ -1,4 +1,10 @@
-export default function Die(props) {
+export type DieProps = {
+    value: number,
+    isHeld: boolean,
+    hold: () => void
+}
+
+export function Die(props: DieProps) {
     const styles = {
         backgroundColor: props.isHeld ? "#59E391" : "white"
     }
@@ -13,3 +19,4 @@ export default function Die(props) {
         >{props.value}</button>
     )
 }
+
